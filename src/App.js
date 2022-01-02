@@ -9,6 +9,7 @@ import SideBar from './components/layout/side-bar/side-bar';
 
 // 임시
 import Task from './components/pages/task/task';
+import TaskModal from './components/task-modal/task-modal';
 
 
 // Menu
@@ -17,13 +18,13 @@ import Task from './components/pages/task/task';
 const drawerWidth = 240;
 const App = () => {
   const theme = useTheme();
-  const [open, setOpen] = useState(false);
+  const [sideBarOpen, setSideBarOpen] = useState(false);
   const handleDrawerOpen = () => {
-    setOpen(true);
+    setSideBarOpen(true);
   };
 
   const handleDrawerClose = () => {
-    setOpen(false);
+    setSideBarOpen(false);
   };
 
   const DrawerHeader = styled('div')(({ theme }) => ({
@@ -39,13 +40,13 @@ const App = () => {
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <Header
-          open={open}
+          open={sideBarOpen}
           drawerWidth={drawerWidth}
           handleDrawerOpen={handleDrawerOpen}
         />
         {/* SideBar */}
         <SideBar
-          open={open}
+          open={sideBarOpen}
           theme={theme}
           drawerWidth={drawerWidth}
           handleDrawerClose={handleDrawerClose}
@@ -54,6 +55,7 @@ const App = () => {
         <Box sx={{ height: '100vh'}} >
           <DrawerHeader />
           <Task />
+          <TaskModal />
         </Box>
       </Box>
     </Container>

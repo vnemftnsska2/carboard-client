@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Button, Grid, } from '@mui/material';
 import TaskMemo from '../../task-memo/task-memo';
 import AddTaskIcon from '@mui/icons-material/AddTask';
 
+// Modal
+import TaskModal from '../../task-modal/task-modal';
 
 const Task = ({}) => {
+  const [open, setOpen] = useState(false);
+  const openTaskModal = () => setOpen(true);
+  const closeTaskModal = () => setOpen(false);
+
   return (
     <Box>
       <Box sx={{ height: '5em', padding: '1em' }}>
-        <Button variant="outlined" endIcon={<AddTaskIcon />}>
+        <Button onClick={openTaskModal} variant="outlined" endIcon={<AddTaskIcon />}>
           업무 추가
         </Button>
       </Box>
@@ -21,6 +27,12 @@ const Task = ({}) => {
           )
         })}
       </Grid>
+
+      {/* Modal */}
+      <TaskModal
+        open={open}
+        handleClose={closeTaskModal}
+      />
     </Box>
   );
 };
