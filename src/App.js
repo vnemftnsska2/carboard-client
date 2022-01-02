@@ -6,7 +6,10 @@ import { styled, useTheme } from '@mui/material/styles';
 // LayOut
 import Header from './components/layout/header/header';
 import SideBar from './components/layout/side-bar/side-bar';
-import ContentBox from './components/layout/content-box/content-box';
+
+// 임시
+import Task from './components/pages/task/task';
+
 
 // Menu
 
@@ -50,7 +53,7 @@ const App = () => {
         />
         <Box sx={{ height: '100vh'}} >
           <DrawerHeader />
-          <ContentBox />
+          <Task />
         </Box>
       </Box>
     </Container>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardHeader, CardContent, Typography, Avatar } from '@mui/material';
 import { red } from '@mui/material/colors';
 
-const TaskMemo = () => {
+const CarMemo = () => {
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader
@@ -65,4 +65,4 @@ const TaskMemo = () => {
   );
 };
 
-export default TaskMemo;
+export default CarMemo;

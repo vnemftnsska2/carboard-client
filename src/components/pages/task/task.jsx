@@ -1,19 +1,27 @@
 import React from 'react';
-import { Box, Grid, } from '@mui/material';
-import CarMemo from '../../car-memo/car-memo';
-import TitleHeader from '../../layout/title-header/title-header'
+import { Box, Button, Grid, } from '@mui/material';
+import TaskMemo from '../../task-memo/task-memo';
+import AddTaskIcon from '@mui/icons-material/AddTask';
+
 
 const Task = ({}) => {
   return (
-    <Grid container spacing={2}>
-      {[...Array(10)].map(v => {
-        return (
-          <Grid item xs={3}>
-            <CarMemo></CarMemo>
-          </Grid>
-        )
-      })}
-    </Grid>
+    <Box>
+      <Box sx={{ height: '5em', padding: '1em' }}>
+        <Button variant="outlined" endIcon={<AddTaskIcon />}>
+          업무 추가
+        </Button>
+      </Box>
+      <Grid container spacing={2}>
+        {[...Array(10)].map(v => {
+          return (
+            <Grid item xs={3}>
+              <TaskMemo></TaskMemo>
+            </Grid>
+          )
+        })}
+      </Grid>
+    </Box>
   );
 };
 
