@@ -1,22 +1,59 @@
-import './App.css';
-import { Container, Grid } from '@mui/material';
-import CarMemo from './components/car-memo/car-memo';
+import './app.css';
+import React, { useState } from 'react';
+import { Container, Box, CssBaseline, } from '@mui/material';
+import { styled, useTheme } from '@mui/material/styles';
 
+// LayOut
+import Header from './components/layout/header/header';
+import SideBar from './components/layout/side-bar/side-bar';
+import ContentBox from './components/layout/content-box/content-box';
+
+// Menu
+
+
+const drawerWidth = 240;
 const App = () => {
+  const theme = useTheme();
+  const [open, setOpen] = useState(false);
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
+  const DrawerHeader = styled('div')(({ theme }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+  }));
+
   return (
-    <div className="App">
-      <Container maxWidth="xl">
-        <Grid container spacing={2}>
-        {[...Array(10)].map(v => {
-          return (
-            <Grid item xs={3}>
-              <CarMemo></CarMemo>
-            </Grid>
-          )
-        })}
-        </Grid>
-      </Container>
-    </div>
+    <Container maxWidth="xl">
+      <Box sx={{ display: 'flex' }}>
+        <CssBaseline />
+        <Header
+          open={open}
+          drawerWidth={drawerWidth}
+          handleDrawerOpen={handleDrawerOpen}
+        />
+        {/* SideBar */}
+        <SideBar
+          open={open}
+          theme={theme}
+          drawerWidth={drawerWidth}
+          handleDrawerClose={handleDrawerClose}
+          DrawerHeader={DrawerHeader}
+        />
+        <Box sx={{ height: '100vh'}} >
+          <DrawerHeader />
+          <ContentBox />
+        </Box>
+      </Box>
+    </Container>
   );
 }
 
