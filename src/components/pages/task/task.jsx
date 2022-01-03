@@ -15,13 +15,13 @@ const Task = ({}) => {
     <Box>
       <Box sx={{ height: '5em', padding: '1em' }}>
         <Button onClick={openTaskModal} variant="outlined" endIcon={<AddTaskIcon />}>
-          업무 추가
+          작업 추가
         </Button>
       </Box>
       <Grid container spacing={2}>
         {[...Array(10)].map(v => {
           return (
-            <Grid item xs={3}>
+            <Grid item xs={12} md={3}>
               <TaskMemo></TaskMemo>
             </Grid>
           )

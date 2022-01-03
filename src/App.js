@@ -9,7 +9,7 @@ import SideBar from './components/layout/side-bar/side-bar';
 
 // 임시
 import Task from './components/pages/task/task';
-import TaskModal from './components/task-modal/task-modal';
+
 
 
 // Menu
@@ -55,7 +55,6 @@ const App = () => {
         <Box sx={{ height: '100vh'}} >
           <DrawerHeader />
           <Task />
-          <TaskModal />
         </Box>
       </Box>
     </Container>
