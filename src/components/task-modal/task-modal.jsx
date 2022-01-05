@@ -25,7 +25,7 @@ const TaskModal = ({ open, handleClose }) => {
           작업지시서 등록
         </DialogTitle>
         <DialogContent>
-          <Grid container spacing={2}>
+          <Grid container spacing={1}>
             <Grid item xs={12} md={5}>
               <TextField
                 label="카마스터"
