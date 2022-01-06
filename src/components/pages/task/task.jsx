@@ -19,10 +19,10 @@ const Task = ({}) => {
         </Button>
       </Box>
       <Grid container spacing={2}>
-        {[...Array(10)].map(v => {
+        {[...Array(10)].map((i, v) => {
           return (
             <Grid item xs={12} md={6} lg={3}>
-              <TaskMemo></TaskMemo>
+              <TaskMemo key={i}></TaskMemo>
             </Grid>
           )
         })}
