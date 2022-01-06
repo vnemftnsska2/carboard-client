@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Button, Grid, } from '@mui/material';
 import TaskMemo from '../../task-memo/task-memo';
 import AddTaskIcon from '@mui/icons-material/AddTask';
@@ -6,8 +6,22 @@ import AddTaskIcon from '@mui/icons-material/AddTask';
 // Modal
 import TaskModal from '../../task-modal/task-modal';
 
-const Task = ({}) => {
+const Task = ({ taskRepository, }) => {
   const [open, setOpen] = useState(false);
+  const [allList, setAllList] = useState([]);
+  const [taskList, setTaskList] = useState([]);
+
+  const getTaskList = async () => {
+      const data = await taskRepository.asyncTaskList();
+      if (!data?.fatal) {
+          setAllList(data);
+          setTaskList(data);
+      }
+  };
+
+  // Init
+  useEffect(getTaskList, [taskRepository]);
+
   const openTaskModal = () => setOpen(true);
   const closeTaskModal = () => setOpen(false);
 

@@ -38,15 +38,20 @@ const TaskModal = ({ open, handleClose }) => {
   const glassFilmRef = useRef();
   const tintingRef = useRef();
   const releaseDateRef = useRef();
+  const releaseDocRef = useRef();
   const paymentTypeRef = useRef();
-  const formRef = useRef();
-  const handleSubmit = () => {
-    console.log(formRef);
-  }
-
+  const paymentCompletedRef = useRef();
 
   const hanldleConsole = () => {
     console.log(coilDRef.current.value, coilCRef.current.value, coilERef.current.value);
+    let coil = 'D';
+    if (coilDRef.current.checked) {
+    } else if (coilCRef.current.checked) {
+      coil = 'C';      
+    } else if (coilERef) {
+      coil = 'E';
+    }
+
     const taskData = {
       deliveryDate: deliveryDateRef.current.value,
       manager: managerRef.current.value,
@@ -62,10 +67,13 @@ const TaskModal = ({ open, handleClose }) => {
       blackBox: blackBoxRef.current.value,
       ppf: ppfRef.current.value,
       etc: etcRef.current.value,
-      glassFilm: glassFilmRef.current.value,
-      tinting: tintingRef.current.value,
+      coil,
+      glassFilm: glassFilmRef.current.checked ? 'G' : '',
+      tinting: tintingRef.current.checked ? 'S' : '',
       releaseDate: releaseDateRef.current.value,
+      releaseDoc: releaseDocRef.current.checked ? 'Y' : 'N',
       paymentType: paymentTypeRef.current.value,
+      paymentCompleted: paymentCompletedRef.current.checked ? 'Y' : 'N',
     };
 
     console.log(taskData);
@@ -78,7 +86,7 @@ const TaskModal = ({ open, handleClose }) => {
           작업지시서 등록
         </DialogTitle>
         <DialogContent>
-          <form ref={formRef}>
+          <form onSubmit={hanldleConsole}>
             <Grid container spacing={2}>
               <Grid item xs={6} md={3}>
                 <TextField
@@ -263,7 +271,11 @@ const TaskModal = ({ open, handleClose }) => {
               <Grid item xs={6} md={3}>
                 <FormHelperText style={{paddingTop:'3px', fontSize: '0.75rem', color: '#1976d2'}}>출고서류</FormHelperText>
                 <FormControl>
-                  <Checkbox size="" style={{marginLeft: '8px', verticalAlign: 'middle'}}/>
+                  <Checkbox
+                    size=""
+                    style={{marginLeft: '8px', verticalAlign: 'middle'}}
+                    inputRef={releaseDocRef}
+                  />
                 </FormControl>
               </Grid>
               <Grid item xs={6} md={3}>
@@ -279,7 +291,11 @@ const TaskModal = ({ open, handleClose }) => {
               <Grid item xs={6} md={3}>
                 <FormHelperText style={{paddingTop:'3px', fontSize: '0.75rem', color: '#1976d2'}}>결재완료</FormHelperText>
                 <FormControl>
-                  <Checkbox size="" style={{marginLeft: '8px', verticalAlign: 'middle'}}/>
+                  <Checkbox
+                    size=""
+                    style={{marginLeft: '8px', verticalAlign: 'middle'}}
+                    inputRef={paymentCompletedRef}
+                  />
                 </FormControl>
               </Grid>
             </Grid>
@@ -287,7 +303,7 @@ const TaskModal = ({ open, handleClose }) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>취소</Button>
-          <Button onClick={handleSubmit}>저장</Button>
+          <Button onClick={hanldleConsole}>저장</Button>
         </DialogActions>
       </Dialog>
     </div>

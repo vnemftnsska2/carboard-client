@@ -7,13 +7,14 @@ import { styled, useTheme } from "@mui/material/styles";
 import Header from "./components/layout/header/header";
 import SideBar from "./components/layout/side-bar/side-bar";
 
+// Menu
+
 // 임시
 import Task from "./components/pages/task/task";
 
-// Menu
 
 const drawerWidth = 240;
-const App = () => {
+const App = ({ taskRepository, }) => {
   const theme = useTheme();
   const [sideBarOpen, setSideBarOpen] = useState(false);
   const handleDrawerOpen = () => {
@@ -51,7 +52,9 @@ const App = () => {
         />
         <Box sx={{ height: "100vh" }}>
           <DrawerHeader />
-          <Task />
+          <Task
+            taskRepository={taskRepository}
+          />
         </Box>
       </Box>
     </Container>
