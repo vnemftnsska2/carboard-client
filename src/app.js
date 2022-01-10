@@ -12,9 +12,8 @@ import SideBar from "./components/layout/side-bar/side-bar";
 // 임시
 import Task from "./components/pages/task/task";
 
-
 const drawerWidth = 240;
-const App = ({ taskRepository, }) => {
+const App = ({ taskRepository }) => {
   const theme = useTheme();
   const [sideBarOpen, setSideBarOpen] = useState(false);
   const handleDrawerOpen = () => {
@@ -52,9 +51,7 @@ const App = ({ taskRepository, }) => {
         />
         <Box sx={{ height: "100vh" }}>
           <DrawerHeader />
-          <Task
-            taskRepository={taskRepository}
-          />
+          <Task taskRepository={taskRepository} />
         </Box>
       </Box>
     </Container>

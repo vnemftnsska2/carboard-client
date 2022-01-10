@@ -12,11 +12,16 @@ const Task = ({ taskRepository, }) => {
   const [taskList, setTaskList] = useState([]);
 
   const getTaskList = async () => {
-      const data = await taskRepository.asyncTaskList();
-      if (!data?.fatal) {
-          setAllList(data);
-          setTaskList(data);
-      }
+    const data = await taskRepository.asyncTaskList();
+    if (!data?.fatal) {
+        setAllList(data);
+        setTaskList(data);
+    }
+  };
+
+  const addTask = (task) => {
+    const result = taskRepository.ayncAddTask(task);
+    
   };
 
   // Init
@@ -45,6 +50,7 @@ const Task = ({ taskRepository, }) => {
       {/* Modal */}
       <TaskModal
         open={open}
+        addTask={addTask}
         handleClose={closeTaskModal}
       />
     </Box>

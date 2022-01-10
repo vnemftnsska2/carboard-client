@@ -17,7 +17,7 @@ Dialog,
   Checkbox,
 } from '@mui/material';
 
-const TaskModal = ({ open, handleClose }) => {
+const TaskModal = ({ open, addTask, handleClose }) => {
   const deliveryDateRef = useRef();
   const managerRef = useRef();
   const carMasterRef = useRef();
@@ -76,7 +76,7 @@ const TaskModal = ({ open, handleClose }) => {
       paymentCompleted: paymentCompletedRef.current.checked ? 'Y' : 'N',
     };
 
-    console.log(taskData);
+    addTask(taskData);
   };
 
   return (
