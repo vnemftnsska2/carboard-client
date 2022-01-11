@@ -21,7 +21,7 @@ const Task = ({ taskRepository, }) => {
 
   const addTask = (task) => {
     const result = taskRepository.ayncAddTask(task);
-    console.log(result);
+    console.log(result );
   };
 
   // Init
