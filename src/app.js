@@ -33,7 +33,7 @@ const App = ({ taskRepository }) => {
   }));
 
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth={false}>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <Header
@@ -49,7 +49,7 @@ const App = ({ taskRepository }) => {
           handleDrawerClose={handleDrawerClose}
           DrawerHeader={DrawerHeader}
         />
-        <Box sx={{ height: "100vh" }}>
+        <Box sx={{ height: "100vh", width: "100%" }}>
           <DrawerHeader />
           <Task taskRepository={taskRepository} />
         </Box>

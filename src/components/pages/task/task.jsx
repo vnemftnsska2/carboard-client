@@ -38,10 +38,13 @@ const Task = ({ taskRepository, }) => {
         </Button>
       </Box>
       <Grid container spacing={2}>
-        {[...Array(10)].map((i, v) => {
+        {taskList && taskList.map((v, i) => {
           return (
             <Grid item xs={12} md={6} lg={3}>
-              <TaskMemo key={i}></TaskMemo>
+              <TaskMemo
+                key={v.idx}
+                task={v}
+              ></TaskMemo>
             </Grid>
           )
         })}

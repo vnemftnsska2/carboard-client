@@ -2,9 +2,10 @@ import React from 'react';
 import { Card, CardHeader, CardContent, Typography, Avatar } from '@mui/material';
 import { red } from '@mui/material/colors';
 
-const TaskMemo = () => {
+const TaskMemo = ({ task }) => {
+  console.log(task);
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 400 }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -12,44 +13,44 @@ const TaskMemo = () => {
           </Avatar>
         }
         title="문경민"
-        subheader="2021-01-01"
+        subheader={task.delivery_date}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          카마스터 (카니발)
+          {task.car_master} ({task.car_type})
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          고객성명
+          고객성명: {task.customer_name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          고객번호
+          고객번호: {task.customer_phone}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          전면
+          전면: {task.car_front}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          측면(1열)
+          측면(1열): {task.car_side_a}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          측면(2/3열)
+          측면(2/3열): {task.car_side_b}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          후면
+          후면: {task.car_back}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          파노라마
+          파노라마: {task.panorama}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          블랙박스
+          블랙박스: {task.blackbox}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          PPF
+          PPF: {task.ppf}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          기타
+          기타: {task.etc}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          코일매트
+          코일매트: {task.coil_matt}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           유리막보증[ ] 보증서발행[ ]
@@ -58,7 +59,7 @@ const TaskMemo = () => {
           출고서류: 복사[ ]
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          출고날짜
+          출고날짜: {task.release_date}
         </Typography>
       </CardContent>
     </Card>
