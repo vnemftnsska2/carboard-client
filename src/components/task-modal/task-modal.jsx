@@ -1,6 +1,6 @@
 import React, { useRef, } from 'react';
 import {
-Dialog,
+  Dialog,
   DialogTitle,
   DialogContent,
   Grid,
@@ -16,297 +16,253 @@ Dialog,
   RadioGroup,
   Checkbox,
 } from '@mui/material';
+import { FormatAlignRightTwoTone } from '@mui/icons-material';
 
 const TaskModal = ({ open, addTask, handleClose }) => {
-  const deliveryDateRef = useRef();
-  const managerRef = useRef();
-  const carMasterRef = useRef();
-  const carTypeRef = useRef();
-  const customerNameRef = useRef();
-  const customerPhoneRef = useRef();
-  const carFrontRef = useRef();
-  const carSideARef = useRef();
-  const carSideBRef = useRef();
-  const carBackRef = useRef();
-  const panoramaRef = useRef();
-  const blackBoxRef = useRef();
-  const ppfRef = useRef();
-  const etcRef = useRef();
-  const coilDRef = useRef();
-  const coilCRef = useRef();
-  const coilERef = useRef();
-  const glassFilmRef = useRef();
-  const tintingRef = useRef();
-  const releaseDateRef = useRef();
-  const releaseDocRef = useRef();
-  const paymentTypeRef = useRef();
-  const paymentCompletedRef = useRef();
+  const taskFormRef = useRef();
 
   const hanldleConsole = () => {
-    console.log(coilDRef.current.value, coilCRef.current.value, coilERef.current.value);
-    let coil = 'D';
-    if (coilDRef.current.checked) {
-    } else if (coilCRef.current.checked) {
-      coil = 'C';      
-    } else if (coilERef) {
-      coil = 'E';
-    }
+    const param = {};
+    const formData = new FormData(taskFormRef.current);
+    formData.forEach((v, k) => param[k] = v);
+    addTask(param, resetForm);
+  };
 
-    const taskData = {
-      deliveryDate: deliveryDateRef.current.value,
-      manager: managerRef.current.value,
-      carMaster: carMasterRef.current.value,
-      carType: carTypeRef.current.value,
-      customerName: customerNameRef.current.value,
-      customerPhone: customerPhoneRef.current.value,
-      carFront: carFrontRef.current.value,
-      carSideA: carSideARef.current.value,
-      carSideB: carSideBRef.current.value,
-      carBack: carBackRef.current.value,
-      panorama: panoramaRef.current.value,
-      blackBox: blackBoxRef.current.value,
-      ppf: ppfRef.current.value,
-      etc: etcRef.current.value,
-      coil,
-      glassFilm: glassFilmRef.current.checked ? 'G' : '',
-      tinting: tintingRef.current.checked ? 'S' : '',
-      releaseDate: releaseDateRef.current.value,
-      releaseDoc: releaseDocRef.current.checked ? 'Y' : 'N',
-      paymentType: paymentTypeRef.current.value,
-      paymentCompleted: paymentCompletedRef.current.checked ? 'Y' : 'N',
-    };
-
-    addTask(taskData);
+  const resetForm = () => {
+    const taskForm = taskFormRef.current;
+    taskForm.reset();
   };
 
   return (
-    <div>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>
-          작업지시서 등록
-        </DialogTitle>
-        <DialogContent>
-          <form onSubmit={hanldleConsole}>
-            <Grid container spacing={2}>
-              <Grid item xs={6} md={3}>
-                <TextField
-                  label="입고날짜"
-                  margin="dense"
-                  variant="standard"
-                  focused
-                  inputRef={deliveryDateRef}
-                />
-              </Grid>
-              <Grid item md={2}></Grid>
-              <Grid item xs={6} md={5} >
-                <TextField
-                  label="담당자"
-                  margin="dense"
-                  variant="standard"
-                  focused
-                  inputRef={managerRef}
-                />
-              </Grid>
-              <Grid item xs={12} md={5}>
-                <TextField
-                  label="카마스터"
-                  margin="dense"
-                  variant="standard"
-                  fullWidth
-                  focused
-                  inputRef={carMasterRef}
-                />
-              </Grid>
-              <Grid item xs={12} md={5}>
-                <TextField
-                  label="차종"
-                  margin="dense"
-                  variant="standard"
-                  fullWidth
-                  focused
-                  inputRef={carTypeRef}
-                />
-              </Grid>
-              <Grid item xs={12} md={5}>
-                <TextField
-                  label="고객성명"
-                  margin="dense"
-                  variant="standard"
-                  fullWidth
-                  focused
-                  inputRef={customerNameRef}
-                />
-              </Grid>
-              <Grid item xs={12} md={5}>
-                <TextField
-                  label="고객번호"
-                  margin="dense"
-                  variant="standard"
-                  fullWidth
-                  focused
-                  inputRef={customerPhoneRef}
-                />
-              </Grid>
-              <Grid item xs={6} md={3}>
-                <TextField
-                  label="전면"
-                  margin="dense"
-                  variant="standard"
-                  focused
-                  inputRef={carFrontRef}
-                />
-              </Grid>
-              <Grid item xs={6} md={3}>
-                <TextField
-                  label="측면(1열)"
-                  margin="dense"
-                  variant="standard"
-                  fullWidth
-                  focused
-                  inputRef={carSideARef}
-                />
-              </Grid>
-              <Grid item xs={6} md={3}>
-                <TextField
-                  label="측면(2/3열)"
-                  margin="dense"
-                  variant="standard"
-                  fullWidth
-                  focused
-                  inputRef={carSideBRef}
-                />
-              </Grid>
-              <Grid item xs={6} md={3}>
-                <TextField
-                  label="후면"
-                  margin="dense"
-                  variant="standard"
-                  fullWidth
-                  focused
-                  inputRef={carBackRef}
-                />
-              </Grid>
-              <Grid item xs={6} md={4}>
-                <TextField
-                  label="파노라마"
-                  margin="dense"
-                  variant="standard"
-                  fullWidth
-                  focused
-                  inputRef={panoramaRef}
-                />
-              </Grid>
-              <Grid item xs={6} md={4}>
-                <TextField
-                  label="블랙박스"
-                  margin="dense"
-                  variant="standard"
-                  fullWidth
-                  focused
-                  inputRef={blackBoxRef}
-                />
-              </Grid>
-              <Grid item xs={6} md={4}>
-                <TextField
-                  label="PPF"
-                  margin="dense"
-                  variant="standard"
-                  fullWidth
-                  focused
-                  inputRef={ppfRef}
-                />
-              </Grid>
-              <Grid item xs={6} md={12}>
-                <TextField
-                  label="기타"
-                  margin="dense"
-                  variant="standard"
-                  fullWidth
-                  focused
-                  inputRef={etcRef}
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <FormControl component="fieldset">
-                  <FormLabel component="legend" style={{ fontSize: '0.7rem', color: '#1976d2'}}>코일매트</FormLabel>
-                  <RadioGroup
-                    row
-                    aria-label="coil-matt"
-                    defaultValue="D"
-                    name="row-radio-buttons-group">
-                    <FormControlLabel value="D" control={<Radio size="small" inputRef={coilDRef}/>} label="딜러" />
-                    <FormControlLabel value="C" control={<Radio size="small" inputRef={coilCRef}/>} label="카보드" />
-                    <FormControlLabel value="E" control={<Radio size="small" inputRef={coilERef}/>} label="없음" />
-                  </RadioGroup>
-                </FormControl>
-              </Grid>
-              <Grid item xs={12} md={6}>
-              <FormControl component="fieldset">
-                <FormLabel component="legend" style={{fontSize: '0.7rem', color: '#1976d2'}}>보증서</FormLabel>
-                  <FormGroup aria-label="position" row>
-                    <FormControlLabel
-                      value="G"
-                      control={<Checkbox size="small" inputRef={glassFilmRef} />}
-                      label="유리막"
-                      labelPlacement="end"
-                    />
-                    <FormControlLabel
-                      value="S"
-                      control={<Checkbox size="small" inputRef={tintingRef} />}
-                      label="썬팅"
-                      labelPlacement="end"
-                    />
-                  </FormGroup>
-                </FormControl>
-              </Grid>
-              <Grid item xs={6} md={3}>
-                <TextField
-                  label="출고날짜"
-                  margin="dense"
-                  variant="standard"
-                  focused
-                  inputRef={releaseDateRef}
-                />
-              </Grid>
-              <Grid item xs={6} md={3}>
-                <FormHelperText style={{paddingTop:'3px', fontSize: '0.75rem', color: '#1976d2'}}>출고서류</FormHelperText>
-                <FormControl>
-                  <Checkbox
-                    size=""
-                    style={{marginLeft: '8px', verticalAlign: 'middle'}}
-                    inputRef={releaseDocRef}
-                  />
-                </FormControl>
-              </Grid>
-              <Grid item xs={6} md={3}>
-                <TextField
-                  label="결제방식"
-                  margin="dense"
-                  variant="standard"
-                  fullWidth
-                  focused
-                  inputRef={paymentTypeRef}
-                />
-              </Grid>
-              <Grid item xs={6} md={3}>
-                <FormHelperText style={{paddingTop:'3px', fontSize: '0.75rem', color: '#1976d2'}}>결재완료</FormHelperText>
-                <FormControl>
-                  <Checkbox
-                    size=""
-                    style={{marginLeft: '8px', verticalAlign: 'middle'}}
-                    inputRef={paymentCompletedRef}
-                  />
-                </FormControl>
-              </Grid>
+    <Dialog open={open} onClose={handleClose}>
+      <DialogTitle>
+        작업지시서 등록
+      </DialogTitle>
+      <DialogContent>
+        <form ref={taskFormRef} onSubmit={hanldleConsole}>
+          <Grid container spacing={2}>
+            <Grid item xs={6} md={3}>
+              <TextField
+                label="입고날짜"
+                type="date"
+                margin="dense"
+                variant="standard"
+                focused
+                name="delivery_date"
+              />
             </Grid>
-          </form>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>취소</Button>
-          <Button onClick={hanldleConsole}>저장</Button>
-        </DialogActions>
-      </Dialog>
-    </div>
+            <Grid item md={2}></Grid>
+            <Grid item xs={6} md={5} >
+              <TextField
+                label="담당자"
+                margin="dense"
+                variant="standard"
+                focused
+                name="manager"
+              />
+            </Grid>
+            <Grid item xs={12} md={5}>
+              <TextField
+                label="카마스터"
+                margin="dense"
+                variant="standard"
+                fullWidth
+                focused
+                name="car_master"
+              />
+            </Grid>
+            <Grid item xs={12} md={5}>
+              <TextField
+                label="차종"
+                margin="dense"
+                variant="standard"
+                fullWidth
+                focused
+                name="car_type"
+              />
+            </Grid>
+            <Grid item xs={12} md={5}>
+              <TextField
+                label="고객성명"
+                margin="dense"
+                variant="standard"
+                fullWidth
+                focused
+                name="customer_name"
+              />
+            </Grid>
+            <Grid item xs={12} md={5}>
+              <TextField
+                label="고객번호"
+                margin="dense"
+                variant="standard"
+                fullWidth
+                focused
+                name="customer_phone"
+              />
+            </Grid>
+            <Grid item xs={6} md={3}>
+              <TextField
+                label="전면"
+                margin="dense"
+                variant="standard"
+                focused
+                name="car_front"
+              />
+            </Grid>
+            <Grid item xs={6} md={3}>
+              <TextField
+                label="측면(1열)"
+                margin="dense"
+                variant="standard"
+                fullWidth
+                focused
+                name="car_side_a"
+              />
+            </Grid>
+            <Grid item xs={6} md={3}>
+              <TextField
+                label="측면(2/3열)"
+                margin="dense"
+                variant="standard"
+                fullWidth
+                focused
+                name="car_side_b"
+              />
+            </Grid>
+            <Grid item xs={6} md={3}>
+              <TextField
+                label="후면"
+                margin="dense"
+                variant="standard"
+                fullWidth
+                focused
+                name="car_back"
+              />
+            </Grid>
+            <Grid item xs={6} md={4}>
+              <TextField
+                label="파노라마"
+                margin="dense"
+                variant="standard"
+                fullWidth
+                focused
+                name="panorama"
+              />
+            </Grid>
+            <Grid item xs={6} md={4}>
+              <TextField
+                label="블랙박스"
+                margin="dense"
+                variant="standard"
+                fullWidth
+                focused
+                name="blackbox"
+              />
+            </Grid>
+            <Grid item xs={6} md={4}>
+              <TextField
+                label="PPF"
+                margin="dense"
+                variant="standard"
+                fullWidth
+                focused
+                name="ppf"
+              />
+            </Grid>
+            <Grid item xs={6} md={12}>
+              <TextField
+                label="기타"
+                margin="dense"
+                variant="standard"
+                fullWidth
+                focused
+                name="etc"
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <FormControl component="fieldset">
+                <FormLabel component="legend" style={{ fontSize: '0.7rem', color: '#1976d2'}}>코일매트</FormLabel>
+                <RadioGroup
+                  row
+                  aria-label="coil-matt"
+                  defaultValue="D"
+                  name="coil_matt">
+                  <FormControlLabel value="D" control={<Radio size="small" />} label="딜러" />
+                  <FormControlLabel value="C" control={<Radio size="small" />} label="카보드" />
+                  <FormControlLabel value="E" control={<Radio size="small" />} label="없음" />
+                </RadioGroup>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} md={6}>
+            <FormControl component="fieldset">
+              <FormLabel component="legend" style={{fontSize: '0.7rem', color: '#1976d2'}}>보증서</FormLabel>
+                <FormGroup aria-label="position" row>
+                  <FormControlLabel
+                    label="유리막"
+                    name="glass_film"
+                    value="Y"
+                    labelPlacement="end"
+                    control={<Checkbox size="small" />}
+                  />
+                  <FormControlLabel
+                    label="썬팅"
+                    name="tinting"
+                    value="Y"
+                    labelPlacement="end"
+                    control={<Checkbox size="small" />}
+                  />
+                </FormGroup>
+              </FormControl>
+            </Grid>
+            <Grid item xs={6} md={4}>
+              <TextField
+                label="출고날짜"
+                type="date"
+                margin="dense"
+                variant="standard"
+                focused
+                name="release_date"
+              />
+            </Grid>
+            <Grid item xs={6} md={2}>
+              <FormHelperText style={{paddingTop:'3px', fontSize: '0.75rem', color: '#1976d2'}}>출고서류</FormHelperText>
+              <FormControl>
+                <Checkbox
+                  size=""
+                  style={{marginLeft: '8px', verticalAlign: 'middle'}}
+                  name="release_doc"
+                />
+              </FormControl>
+            </Grid>
+            <Grid item xs={6} md={4}>
+              <TextField
+                label="결제방식"
+                margin="dense"
+                variant="standard"
+                fullWidth
+                focused
+                name="payment_type"
+              />
+            </Grid>
+            <Grid item xs={6} md={2}>
+              <FormHelperText style={{paddingTop:'3px', fontSize: '0.75rem', color: '#1976d2'}}>결재완료</FormHelperText>
+              <FormControl>
+                <Checkbox
+                  size=""
+                  style={{marginLeft: '8px', verticalAlign: 'middle'}}
+                  name="payment_completed"
+                />
+              </FormControl>
+            </Grid>
+          </Grid>
+        </form>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose}>취소</Button>
+        <Button onClick={hanldleConsole}>저장</Button>
+      </DialogActions>
+    </Dialog>
   );
 };
 

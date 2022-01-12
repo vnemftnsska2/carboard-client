@@ -19,9 +19,16 @@ const Task = ({ taskRepository, }) => {
     }
   };
 
-  const addTask = (task) => {
-    const result = taskRepository.ayncAddTask(task);
-    console.log(result );
+  const addTask = async (task, reset) => {
+    const result = await taskRepository.ayncAddTask(task);
+    if (result.status === 200) {
+      alert('신규 작업이 추가되었습니다 🚙 🚘 🚕');
+      closeTaskModal();
+      reset();
+      getTaskList();
+    } else {
+      alert('진행중 에러가 발생하였습니다 😡')
+    }
   };
 
   // Init
@@ -38,9 +45,9 @@ const Task = ({ taskRepository, }) => {
         </Button>
       </Box>
       <Grid container spacing={2}>
-        {taskList && taskList.map((v, i) => {
+        {taskList && taskList.map(v => {
           return (
-            <Grid item xs={12} md={6} lg={3}>
+            <Grid item key={v.idx} xs={12} md={6} lg={3}>
               <TaskMemo
                 key={v.idx}
                 task={v}

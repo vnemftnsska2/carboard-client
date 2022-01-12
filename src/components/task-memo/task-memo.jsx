@@ -1,11 +1,10 @@
 import React from 'react';
-import { Card, CardHeader, CardContent, Typography, Avatar } from '@mui/material';
+import { Card, CardHeader, CardContent, Typography, Avatar, Button } from '@mui/material';
 import { red } from '@mui/material/colors';
 
 const TaskMemo = ({ task }) => {
-  console.log(task);
   return (
-    <Card sx={{ maxWidth: 400 }}>
+    <Card sx={{ maxWidth: 400 }} onClick={() => {console.log(task.idx)}}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">

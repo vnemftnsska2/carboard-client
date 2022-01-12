@@ -25,7 +25,7 @@ const Header = ({ open, handleDrawerOpen, drawerWidth }) => {
 
   return (
     <Header position="fixed" open={open}>
-      <Toolbar>
+      <Toolbar sx={{ backgroundColor: 'black',}}>
         <IconButton
           color="inherit"
           aria-label="open drawer"
@@ -38,8 +38,10 @@ const Header = ({ open, handleDrawerOpen, drawerWidth }) => {
         >
           <MenuIcon />
         </IconButton>
-        <Typography variant="h6" noWrap component="div">
-          Mini variant drawer
+        <Typography variant="h6" component="div">
+          <u><i><b>
+            <font color="red">C</font>ar<font color="blue">B</font>oard
+          </b></i></u>
         </Typography>
       </Toolbar>
     </Header>
