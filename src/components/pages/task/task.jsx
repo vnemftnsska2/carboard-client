@@ -31,6 +31,10 @@ const Task = ({ taskRepository, }) => {
     }
   };
 
+  const openUpdateModal = (idx) => {
+    alert(idx);
+  };
+
   // Init
   useEffect(getTaskList, [taskRepository]);
 
@@ -51,6 +55,7 @@ const Task = ({ taskRepository, }) => {
               <TaskMemo
                 key={v.idx}
                 task={v}
+                openMadal={openUpdateModal}
               ></TaskMemo>
             </Grid>
           )

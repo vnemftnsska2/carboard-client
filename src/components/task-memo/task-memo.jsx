@@ -2,16 +2,16 @@ import React from 'react';
 import { Card, CardHeader, CardContent, Typography, Avatar, Button } from '@mui/material';
 import { red } from '@mui/material/colors';
 
-const TaskMemo = ({ task }) => {
+const TaskMemo = ({ task, openMadal }) => {
   return (
-    <Card sx={{ maxWidth: 400 }} onClick={() => {console.log(task.idx)}}>
+    <Card sx={{ maxWidth: 400 }} onClick={() => { openMadal(task.idx) }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
             문
           </Avatar>
         }
-        title="문경민"
+        title={task.manager}
         subheader={task.delivery_date}
       />
       <CardContent>
