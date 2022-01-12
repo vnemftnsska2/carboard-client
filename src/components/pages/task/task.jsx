@@ -32,7 +32,7 @@ const Task = ({ taskRepository, }) => {
   };
 
   const openUpdateModal = (idx) => {
-    alert(idx);
+    
   };
 
   // Init
