@@ -16,7 +16,6 @@ import {
   RadioGroup,
   Checkbox,
 } from '@mui/material';
-import { FormatAlignRightTwoTone } from '@mui/icons-material';
 
 const TaskModal = ({ open, addTask, handleClose }) => {
   const taskFormRef = useRef();

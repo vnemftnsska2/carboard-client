@@ -32,7 +32,8 @@ const Task = ({ taskRepository, }) => {
   };
 
   const openUpdateModal = (idx) => {
-    
+    console.log(idx)
+    openTaskModal();
   };
 
   // Init

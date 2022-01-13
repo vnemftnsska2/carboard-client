@@ -1,18 +1,54 @@
 import React from 'react';
-import { Card, CardHeader, CardContent, Typography, Avatar, Button } from '@mui/material';
-import { red } from '@mui/material/colors';
+import { Card, CardHeader, CardContent, Typography, Avatar, } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import CheckIcon from '@mui/icons-material/Check';
+import BuildIcon from '@mui/icons-material/Build';
+import { red, green, grey, } from '@mui/material/colors';
+
+const week = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
 
 const TaskMemo = ({ task, openMadal }) => {
+  const getStatusColor = (completed) => {
+    if (completed === 'Y') {
+      return green[400];
+    }
+    return red[400];
+  };
+
+  const getStatusIcon = (completed) => {
+    if (completed === 'Y') {
+      return <CheckIcon fontSize='large'/>;
+    }
+    return <BuildIcon />;
+  };
+
+  const getDate = (date) => {
+    if (date) {
+      const formatDate = date.substr(0, 10);
+      const weekNum = new Date(formatDate).getDay();
+      const weekStr = week[weekNum];
+      return `${formatDate} ${weekStr}`;
+    }
+    return '-'
+  };
+
   return (
-    <Card sx={{ maxWidth: 400 }} onClick={() => { openMadal(task.idx) }}>
+    <Card sx={{ maxWidth: 400 }}>
       <CardHeader
+        sx={{ bgcolor: grey[200] }}
         avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            문
+          <Avatar sx={{ bgcolor: getStatusColor(task.payment_completed) }} aria-label="recipe">
+            {getStatusIcon(task.payment_completed)}
           </Avatar>
         }
-        title={task.manager}
-        subheader={task.delivery_date}
+        action={
+          <IconButton aria-label="settings">
+            <MoreVertIcon onClick={() => { openMadal(task.idx) }}/>
+          </IconButton>
+        }
+        title={`no. ${task.idx}`}
+        subheader={ getDate(task.delivery_date) }
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">

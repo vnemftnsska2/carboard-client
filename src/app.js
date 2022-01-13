@@ -1,7 +1,11 @@
 import "./app.css";
 import React, { useState } from "react";
-import { Container, Box, CssBaseline } from "@mui/material";
+import { Container, Box, CssBaseline, SpeedDial, SpeedDialIcon, SpeedDialAction } from "@mui/material";
 import { styled, useTheme } from "@mui/material/styles";
+import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
+import SaveIcon from '@mui/icons-material/Save';
+import PrintIcon from '@mui/icons-material/Print';
+import ShareIcon from '@mui/icons-material/Share';
 
 // LayOut
 import Header from "./components/layout/header/header";
@@ -13,6 +17,13 @@ import SideBar from "./components/layout/side-bar/side-bar";
 import Task from "./components/pages/task/task";
 
 const drawerWidth = 240;
+const actions = [
+  { icon: <FileCopyIcon />, name: 'Copy' },
+  { icon: <SaveIcon />, name: 'Save' },
+  { icon: <PrintIcon />, name: 'Print' },
+  { icon: <ShareIcon />, name: 'Share' },
+];
+
 const App = ({ taskRepository }) => {
   const theme = useTheme();
   const [sideBarOpen, setSideBarOpen] = useState(false);
