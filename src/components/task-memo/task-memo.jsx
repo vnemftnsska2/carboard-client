@@ -47,7 +47,7 @@ const TaskMemo = ({ task, openMadal }) => {
             <MoreVertIcon onClick={() => { openMadal(task.idx) }}/>
           </IconButton>
         }
-        title={`no. ${task.idx}`}
+        title={`no. ${task.rowno}`}
         subheader={ getDate(task.delivery_date) }
       />
       <CardContent>
@@ -94,7 +94,7 @@ const TaskMemo = ({ task, openMadal }) => {
           출고서류: 복사[ ]
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          출고날짜: {task.release_date}
+          출고날짜: { getDate(task.release_date)}
         </Typography>
       </CardContent>
     </Card>
