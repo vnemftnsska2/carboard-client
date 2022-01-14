@@ -1,4 +1,4 @@
-import React, { useRef, } from 'react';
+import React, { useState, useRef, useEffect, } from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -17,13 +17,12 @@ import {
   Checkbox,
 } from '@mui/material';
 
-const TaskModal = ({ open, addTask, handleClose }) => {
+const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
   const taskFormRef = useRef();
-
-  const hanldleConsole = () => {
+  const hanldleSubmit = () => {
     const param = {};
-    const formData = new FormData(taskFormRef.current);
-    formData.forEach((v, k) => param[k] = v);
+    const taskForm = new FormData(taskFormRef.current);
+    taskForm.forEach((v, k) => param[k] = v);
     addTask(param, resetForm);
   };
 
@@ -35,10 +34,11 @@ const TaskModal = ({ open, addTask, handleClose }) => {
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>
-        작업지시서 등록
+        {updateTask ? `no. ${updateTask.rowno}` : 'NEW'} 작업표
       </DialogTitle>
       <DialogContent>
-        <form ref={taskFormRef} onSubmit={hanldleConsole}>
+        <form ref={taskFormRef}>
+          <input type="hidden" name="idx" value={updateTask?.idx || ''}/>
           <Grid container spacing={2}>
             <Grid item xs={6} md={3}>
               <TextField
@@ -48,6 +48,7 @@ const TaskModal = ({ open, addTask, handleClose }) => {
                 variant="standard"
                 focused
                 name="delivery_date"
+                value={updateTask?.delivery_date ? updateTask.delivery_date.substr(0, 10) : ''}
               />
             </Grid>
             <Grid item md={2}></Grid>
@@ -58,6 +59,7 @@ const TaskModal = ({ open, addTask, handleClose }) => {
                 variant="standard"
                 focused
                 name="manager"
+                value={updateTask?.manager || ''}
               />
             </Grid>
             <Grid item xs={12} md={5}>
@@ -68,6 +70,7 @@ const TaskModal = ({ open, addTask, handleClose }) => {
                 fullWidth
                 focused
                 name="car_master"
+                value={updateTask?.car_master || ''}
               />
             </Grid>
             <Grid item xs={12} md={5}>
@@ -78,6 +81,7 @@ const TaskModal = ({ open, addTask, handleClose }) => {
                 fullWidth
                 focused
                 name="car_type"
+                value={updateTask?.car_type || ''}
               />
             </Grid>
             <Grid item xs={12} md={5}>
@@ -88,6 +92,7 @@ const TaskModal = ({ open, addTask, handleClose }) => {
                 fullWidth
                 focused
                 name="customer_name"
+                value={updateTask?.customer_name || ''}
               />
             </Grid>
             <Grid item xs={12} md={5}>
@@ -98,6 +103,7 @@ const TaskModal = ({ open, addTask, handleClose }) => {
                 fullWidth
                 focused
                 name="customer_phone"
+                value={updateTask?.customer_phone || ''}
               />
             </Grid>
             <Grid item xs={6} md={3}>
@@ -107,6 +113,7 @@ const TaskModal = ({ open, addTask, handleClose }) => {
                 variant="standard"
                 focused
                 name="car_front"
+                value={updateTask?.car_front || ''}
               />
             </Grid>
             <Grid item xs={6} md={3}>
@@ -117,6 +124,7 @@ const TaskModal = ({ open, addTask, handleClose }) => {
                 fullWidth
                 focused
                 name="car_side_a"
+                value={updateTask?.car_side_a || ''}
               />
             </Grid>
             <Grid item xs={6} md={3}>
@@ -127,6 +135,7 @@ const TaskModal = ({ open, addTask, handleClose }) => {
                 fullWidth
                 focused
                 name="car_side_b"
+                value={updateTask?.car_side_b || ''}
               />
             </Grid>
             <Grid item xs={6} md={3}>
@@ -137,6 +146,7 @@ const TaskModal = ({ open, addTask, handleClose }) => {
                 fullWidth
                 focused
                 name="car_back"
+                value={updateTask?.car_back || ''}
               />
             </Grid>
             <Grid item xs={6} md={4}>
@@ -147,6 +157,7 @@ const TaskModal = ({ open, addTask, handleClose }) => {
                 fullWidth
                 focused
                 name="panorama"
+                value={updateTask?.panorama || ''}
               />
             </Grid>
             <Grid item xs={6} md={4}>
@@ -157,6 +168,7 @@ const TaskModal = ({ open, addTask, handleClose }) => {
                 fullWidth
                 focused
                 name="blackbox"
+                value={updateTask?.blackbox || ''}
               />
             </Grid>
             <Grid item xs={6} md={4}>
@@ -167,6 +179,7 @@ const TaskModal = ({ open, addTask, handleClose }) => {
                 fullWidth
                 focused
                 name="ppf"
+                value={updateTask?.ppf || ''}
               />
             </Grid>
             <Grid item xs={6} md={12}>
@@ -177,6 +190,7 @@ const TaskModal = ({ open, addTask, handleClose }) => {
                 fullWidth
                 focused
                 name="etc"
+                value={updateTask?.etc || ''}
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -186,6 +200,7 @@ const TaskModal = ({ open, addTask, handleClose }) => {
                   row
                   aria-label="coil-matt"
                   defaultValue="D"
+                  value={updateTask?.coil_matt || ''}
                   name="coil_matt">
                   <FormControlLabel value="D" control={<Radio size="small" />} label="딜러" />
                   <FormControlLabel value="C" control={<Radio size="small" />} label="카보드" />
@@ -202,6 +217,7 @@ const TaskModal = ({ open, addTask, handleClose }) => {
                     name="glass_film"
                     value="Y"
                     labelPlacement="end"
+                    checked={updateTask?.glass_film === 'Y' ? true : false }
                     control={<Checkbox size="small" />}
                   />
                   <FormControlLabel
@@ -209,6 +225,7 @@ const TaskModal = ({ open, addTask, handleClose }) => {
                     name="tinting"
                     value="Y"
                     labelPlacement="end"
+                    checked={updateTask?.tinting === 'Y' ? true : false }
                     control={<Checkbox size="small" />}
                   />
                 </FormGroup>
@@ -222,6 +239,7 @@ const TaskModal = ({ open, addTask, handleClose }) => {
                 variant="standard"
                 focused
                 name="release_date"
+                value={updateTask?.release_date ? updateTask.release_date.substr(0, 10) : ''}
               />
             </Grid>
             <Grid item xs={6} md={2}>
@@ -231,6 +249,7 @@ const TaskModal = ({ open, addTask, handleClose }) => {
                   size=""
                   style={{marginLeft: '8px', verticalAlign: 'middle'}}
                   name="release_doc"
+                  value={updateTask?.release_doc || ''}
                 />
               </FormControl>
             </Grid>
@@ -242,6 +261,7 @@ const TaskModal = ({ open, addTask, handleClose }) => {
                 fullWidth
                 focused
                 name="payment_type"
+                value={updateTask?.payment_type || ''}
               />
             </Grid>
             <Grid item xs={6} md={2}>
@@ -259,7 +279,7 @@ const TaskModal = ({ open, addTask, handleClose }) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>취소</Button>
-        <Button onClick={hanldleConsole}>저장</Button>
+        <Button onClick={hanldleSubmit}>{updateTask ? '수정' : '추가'}</Button>
       </DialogActions>
     </Dialog>
   );

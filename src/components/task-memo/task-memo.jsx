@@ -8,7 +8,7 @@ import { red, green, grey, } from '@mui/material/colors';
 
 const week = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
 
-const TaskMemo = ({ task, openMadal }) => {
+const TaskMemo = ({ task, openUpdateModal }) => {
   const getStatusColor = (completed) => {
     if (completed === 'Y') {
       return green[400];
@@ -43,8 +43,8 @@ const TaskMemo = ({ task, openMadal }) => {
           </Avatar>
         }
         action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon onClick={() => { openMadal(task.idx) }}/>
+          <IconButton aria-label="settings" onClick={() => { openUpdateModal(task) }}>
+            <MoreVertIcon/>
           </IconButton>
         }
         title={`no. ${task.rowno}`}
