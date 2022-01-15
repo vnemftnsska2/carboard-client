@@ -26,6 +26,20 @@ class TaskRepository {
     });
     return result.json();
   }
+
+  async ayncUpdateTask(task) {
+    const result = await fetch(`/api/task/${task.idx}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(task),
+    }).catch((err) => {
+      console.log(err)
+      return JSON.parse({status: 400});
+    });
+    return result.json();
+  }
 }
 
 export default TaskRepository;

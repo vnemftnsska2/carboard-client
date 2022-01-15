@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, } from 'react';
+import React, { useRef, } from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -17,6 +17,9 @@ import {
   Checkbox,
 } from '@mui/material';
 
+import NumbersIcon from '@mui/icons-material/Numbers';
+import FiberNewOutlinedIcon from '@mui/icons-material/FiberNewOutlined';
+
 const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
   const taskFormRef = useRef();
   const hanldleSubmit = () => {
@@ -34,7 +37,7 @@ const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>
-        {updateTask ? `no. ${updateTask.rowno}` : 'NEW'} 작업표
+        {updateTask ? `no. ${updateTask.rowno}` : <FiberNewOutlinedIcon color='error' fontSize='medium'/>} 작업표
       </DialogTitle>
       <DialogContent>
         <form ref={taskFormRef}>
