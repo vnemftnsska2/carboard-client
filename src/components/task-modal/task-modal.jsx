@@ -1,4 +1,4 @@
-import React, { useRef, } from 'react';
+import React, { useRef, useEffect, } from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -16,17 +16,49 @@ import {
   RadioGroup,
   Checkbox,
 } from '@mui/material';
-
-import NumbersIcon from '@mui/icons-material/Numbers';
+import useForm from '../use-form/useForm';
 import FiberNewOutlinedIcon from '@mui/icons-material/FiberNewOutlined';
+
+const initFormValues = {
+  idx: '',
+  delivery_date: '',
+  manager: '',
+  car_master: '',
+  car_type: '',
+  customer_name: '',
+  customer_phone: '',
+  car_front: '',
+  car_side_a: '',
+  car_side_b: '',
+  car_back: '',
+  panorama: '',
+  blackbox: '',
+  ppf: '',
+  etc: '',
+  coil_matt: 'D',
+  glass_film: 'N',
+  tinting: 'N',
+  release_date: '',
+  release_doc: 'N',
+  payment_type: '',
+  payment_completed: 'N',
+};
 
 const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
   const taskFormRef = useRef();
+
+  const {
+    values,
+    setValues,
+    handleInputChange
+  } = useForm(initFormValues);
+
+  useEffect(() => {
+    setValues({ ...updateTask });
+  }, [updateTask])
+
   const hanldleSubmit = () => {
-    const param = {};
-    const taskForm = new FormData(taskFormRef.current);
-    taskForm.forEach((v, k) => param[k] = v);
-    addTask(param, resetForm);
+    addTask(values, resetForm);
   };
 
   const resetForm = () => {
@@ -41,7 +73,7 @@ const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
       </DialogTitle>
       <DialogContent>
         <form ref={taskFormRef}>
-          <input type="hidden" name="idx" value={updateTask?.idx || ''}/>
+          <input type="hidden" name="idx" value={values?.idx || ''}/>
           <Grid container spacing={2}>
             <Grid item xs={6} md={3}>
               <TextField
@@ -51,7 +83,8 @@ const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
                 variant="standard"
                 focused
                 name="delivery_date"
-                value={updateTask?.delivery_date ? updateTask.delivery_date.substr(0, 10) : ''}
+                onChange={handleInputChange}
+                value={values?.delivery_date?.substr(0, 10) || ''}
               />
             </Grid>
             <Grid item md={2}></Grid>
@@ -62,7 +95,8 @@ const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
                 variant="standard"
                 focused
                 name="manager"
-                value={updateTask?.manager || ''}
+                onChange={handleInputChange}
+                value={values.manager || ''}
               />
             </Grid>
             <Grid item xs={12} md={5}>
@@ -73,7 +107,8 @@ const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
                 fullWidth
                 focused
                 name="car_master"
-                value={updateTask?.car_master || ''}
+                onChange={handleInputChange}
+                value={values.car_master || ''}
               />
             </Grid>
             <Grid item xs={12} md={5}>
@@ -84,7 +119,8 @@ const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
                 fullWidth
                 focused
                 name="car_type"
-                value={updateTask?.car_type || ''}
+                onChange={handleInputChange}
+                value={values.car_type || ''}
               />
             </Grid>
             <Grid item xs={12} md={5}>
@@ -95,7 +131,8 @@ const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
                 fullWidth
                 focused
                 name="customer_name"
-                value={updateTask?.customer_name || ''}
+                onChange={handleInputChange}
+                value={values.customer_name || ''}
               />
             </Grid>
             <Grid item xs={12} md={5}>
@@ -106,7 +143,8 @@ const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
                 fullWidth
                 focused
                 name="customer_phone"
-                value={updateTask?.customer_phone || ''}
+                onChange={handleInputChange}
+                value={values.customer_phone || ''}
               />
             </Grid>
             <Grid item xs={6} md={3}>
@@ -116,7 +154,8 @@ const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
                 variant="standard"
                 focused
                 name="car_front"
-                value={updateTask?.car_front || ''}
+                onChange={handleInputChange}
+                value={values.car_front || ''}
               />
             </Grid>
             <Grid item xs={6} md={3}>
@@ -127,7 +166,8 @@ const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
                 fullWidth
                 focused
                 name="car_side_a"
-                value={updateTask?.car_side_a || ''}
+                onChange={handleInputChange}
+                value={values.car_side_a || ''}
               />
             </Grid>
             <Grid item xs={6} md={3}>
@@ -138,7 +178,8 @@ const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
                 fullWidth
                 focused
                 name="car_side_b"
-                value={updateTask?.car_side_b || ''}
+                onChange={handleInputChange}
+                value={values.car_side_b || ''}
               />
             </Grid>
             <Grid item xs={6} md={3}>
@@ -149,7 +190,8 @@ const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
                 fullWidth
                 focused
                 name="car_back"
-                value={updateTask?.car_back || ''}
+                onChange={handleInputChange}
+                value={values.car_back || ''}
               />
             </Grid>
             <Grid item xs={6} md={4}>
@@ -160,7 +202,8 @@ const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
                 fullWidth
                 focused
                 name="panorama"
-                value={updateTask?.panorama || ''}
+                onChange={handleInputChange}
+                value={values.panorama || ''}
               />
             </Grid>
             <Grid item xs={6} md={4}>
@@ -171,7 +214,8 @@ const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
                 fullWidth
                 focused
                 name="blackbox"
-                value={updateTask?.blackbox || ''}
+                onChange={handleInputChange}
+                value={values.blackbox || ''}
               />
             </Grid>
             <Grid item xs={6} md={4}>
@@ -182,7 +226,8 @@ const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
                 fullWidth
                 focused
                 name="ppf"
-                value={updateTask?.ppf || ''}
+                onChange={handleInputChange}
+                value={values.ppf || ''}
               />
             </Grid>
             <Grid item xs={6} md={12}>
@@ -193,7 +238,8 @@ const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
                 fullWidth
                 focused
                 name="etc"
-                value={updateTask?.etc || ''}
+                onChange={handleInputChange}
+                value={values.etc || ''}
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -203,8 +249,10 @@ const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
                   row
                   aria-label="coil-matt"
                   defaultValue="D"
-                  value={updateTask?.coil_matt || ''}
-                  name="coil_matt">
+                  name="coil_matt"
+                  onChange={handleInputChange}
+                  value={values.coil_matt}
+                >
                   <FormControlLabel value="D" control={<Radio size="small" />} label="딜러" />
                   <FormControlLabel value="C" control={<Radio size="small" />} label="카보드" />
                   <FormControlLabel value="E" control={<Radio size="small" />} label="없음" />
@@ -218,17 +266,19 @@ const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
                   <FormControlLabel
                     label="유리막"
                     name="glass_film"
-                    value="Y"
                     labelPlacement="end"
-                    checked={updateTask?.glass_film === 'Y' ? true : false }
+                    value="Y"
+                    onChange={handleInputChange}
+                    checked={values.glass_film === 'Y' ? true : false }
                     control={<Checkbox size="small" />}
                   />
                   <FormControlLabel
                     label="썬팅"
                     name="tinting"
-                    value="Y"
                     labelPlacement="end"
-                    checked={updateTask?.tinting === 'Y' ? true : false }
+                    value="Y"
+                    onChange={handleInputChange}
+                    checked={values.tinting === 'Y' ? true : false }
                     control={<Checkbox size="small" />}
                   />
                 </FormGroup>
@@ -242,17 +292,21 @@ const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
                 variant="standard"
                 focused
                 name="release_date"
-                value={updateTask?.release_date ? updateTask.release_date.substr(0, 10) : ''}
+                onChange={handleInputChange}
+                value={values?.release_date ? values.release_date.substr(0, 10) : ''}
               />
             </Grid>
             <Grid item xs={6} md={2}>
               <FormHelperText style={{paddingTop:'3px', fontSize: '0.75rem', color: '#1976d2'}}>출고서류</FormHelperText>
-              <FormControl>
+              <FormControl
+                onChange={handleInputChange}
+                checked={values.release_doc === 'Y' ? true : false}
+                >
                 <Checkbox
                   size=""
-                  style={{marginLeft: '8px', verticalAlign: 'middle'}}
+                  value="Y"
                   name="release_doc"
-                  value={updateTask?.release_doc || ''}
+                  style={{marginLeft: '8px', verticalAlign: 'middle'}}
                 />
               </FormControl>
             </Grid>
@@ -264,16 +318,22 @@ const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
                 fullWidth
                 focused
                 name="payment_type"
-                value={updateTask?.payment_type || ''}
+                onChange={handleInputChange}
+                value={values.payment_type || ''}
               />
             </Grid>
             <Grid item xs={6} md={2}>
               <FormHelperText style={{paddingTop:'3px', fontSize: '0.75rem', color: '#1976d2'}}>결재완료</FormHelperText>
-              <FormControl>
+              <FormControl
+                  onChange={handleInputChange}
+                  checked={values?.payment_completed === 'Y' ? true : false}
+                >
                 <Checkbox
                   size=""
-                  style={{marginLeft: '8px', verticalAlign: 'middle'}}
+                  value="Y"
                   name="payment_completed"
+                  checked={values?.payment_completed === 'Y' ? true : false}
+                  style={{marginLeft: '8px', verticalAlign: 'middle'}}
                 />
               </FormControl>
             </Grid>

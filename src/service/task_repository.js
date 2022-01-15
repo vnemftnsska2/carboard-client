@@ -8,7 +8,6 @@ class TaskRepository {
       },
     }).catch((err) => {
       console.log(err);
-      return [];
     });
     return result.json();
   }
