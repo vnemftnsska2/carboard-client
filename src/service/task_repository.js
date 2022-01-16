@@ -1,7 +1,18 @@
 class TaskRepository {
   async asyncTaskList(key) {
-    const apiUrl = key === undefined ? "/api/tasks" : `/api/tasks/${key}`;
-    const result = await fetch(apiUrl, {
+    const result = await fetch(`/api/tasks/t/${key}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).catch((err) => {
+      console.log(err);
+    });
+    return result.json();
+  }
+
+  async asyncTaskById(key) {
+    const result = await fetch(`/api/tasks/${key}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -29,6 +40,20 @@ class TaskRepository {
   async ayncUpdateTask(task) {
     const result = await fetch(`/api/task/${task.idx}`, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(task),
+    }).catch((err) => {
+      console.log(err)
+      return JSON.parse({status: 400});
+    });
+    return result.json();
+  }
+
+  async ayncDeleteTask(task) {
+    const result = await fetch(`/api/task/${task.idx}`, {
+      method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },

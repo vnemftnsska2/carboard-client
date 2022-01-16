@@ -22,7 +22,7 @@ const useForm = (initialFormValues) => {
     values,
     setValues,
     handleInputChange,
-    handleCheckBoxChange
+    handleCheckBoxChange,
   }
 }
 

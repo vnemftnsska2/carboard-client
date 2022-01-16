@@ -3,6 +3,7 @@ import { Card, CardHeader, CardContent, Typography, Avatar, } from '@mui/materia
 import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CheckIcon from '@mui/icons-material/Check';
+import ClearIcon from '@mui/icons-material/Clear';
 import BuildIcon from '@mui/icons-material/Build';
 import { red, green, grey, } from '@mui/material/colors';
 
@@ -34,7 +35,7 @@ const TaskMemo = ({ task, openUpdateModal }) => {
   };
 
   return (
-    <Card sx={{ maxWidth: 400 }}>
+    <Card sx={{ maxWidth: 400 }} elevation={6}>
       <CardHeader
         sx={{ bgcolor: grey[200] }}
         avatar={
@@ -47,12 +48,12 @@ const TaskMemo = ({ task, openUpdateModal }) => {
             <MoreVertIcon/>
           </IconButton>
         }
-        title={`no. ${task.rowno}`}
+        title={<font size="4"><b>{task.car_type}</b></font>}
         subheader={ getDate(task.delivery_date) }
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {task.car_master} ({task.car_type})
+        <Typography variant="body2" color="text.secondary">
+          카마스터: {task.car_master}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           고객성명: {task.customer_name}
@@ -85,13 +86,14 @@ const TaskMemo = ({ task, openUpdateModal }) => {
           기타: {task.etc}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          코일매트: {task.coil_matt}
+          코일매트: {task.coil_matt === 'E' ? '없음' : task.coil_matt === 'D' ? '딜러' : '카보드'}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          유리막보증[ ] 보증서발행[ ]
+          유리막보증 [{task.glass_film === 'Y' ? <CheckIcon color="error" fontSize=''/> : <ClearIcon color="error" fontSize=''/>}]
+          보증서발행 [{task.glass_film === 'Y' ? <CheckIcon color="error" fontSize=''/> : <ClearIcon color="error" fontSize=''/>}]
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          출고서류: 복사[ ]
+          출고서류 복사 [{task.release_doc === 'Y' ? <CheckIcon color="success" fontSize=''/> : <ClearIcon color="error" fontSize=''/>}]
         </Typography>
         <Typography variant="body2" color="text.secondary">
           출고날짜: { getDate(task.release_date)}

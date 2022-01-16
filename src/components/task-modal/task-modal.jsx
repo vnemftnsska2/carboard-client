@@ -15,12 +15,15 @@ import {
   Radio,
   RadioGroup,
   Checkbox,
+  InputLabel,
+  Select,
+  MenuItem,
 } from '@mui/material';
 import useForm from '../use-form/useForm';
 import FiberNewOutlinedIcon from '@mui/icons-material/FiberNewOutlined';
 
 const initFormValues = {
-  idx: '',
+  status: 1,
   delivery_date: '',
   manager: '',
   car_master: '',
@@ -44,7 +47,7 @@ const initFormValues = {
   payment_completed: 'N',
 };
 
-const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
+const TaskModal = ({ open, addTask, updateTask, deleteTask, handleClose }) => {
   const taskFormRef = useRef();
 
   const {
@@ -55,8 +58,13 @@ const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
   } = useForm(initFormValues);
 
   useEffect(() => {
-    setValues({ ...updateTask });
+    setValues({ ...initFormValues, ...updateTask });
   }, [updateTask])
+
+  const handleDeleteTask = () => {
+    if (!window.confirm(`해당 작업지시서를 삭제하시겠습니까?`)) return
+    deleteTask(values, resetForm);
+  };
 
   const hanldleSubmit = () => {
     addTask(values, resetForm);
@@ -70,13 +78,13 @@ const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>
-        {updateTask ? `no. ${updateTask.rowno}` : <FiberNewOutlinedIcon color='error' fontSize='medium'/>} 작업표
+        {updateTask ? '수정' : <FiberNewOutlinedIcon color='error' fontSize='medium'/>} 작업지시서
       </DialogTitle>
       <DialogContent>
         <form ref={taskFormRef}>
           <input type="hidden" name="idx" value={values?.idx || ''}/>
           <Grid container spacing={2}>
-            <Grid item xs={6} md={3}>
+            <Grid item xs={6} md={4}>
               <TextField
                 label="입고날짜"
                 type="date"
@@ -88,8 +96,28 @@ const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
                 value={values?.delivery_date?.substr(0, 10) || ''}
               />
             </Grid>
-            <Grid item md={2}></Grid>
-            <Grid item xs={6} md={5} >
+            <Grid item xs={6} md={4} >
+              <FormControl fullWidth variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                <InputLabel id="task-status-select-label">작업상태</InputLabel>
+                <Select
+                  labelId="task-status-select-label"
+                  id="task-status-select"
+                  name="status"
+                  label="작업상태"
+                  defaultValue=''
+                  value={values.status}
+                  onChange={handleInputChange}
+                >
+                  <MenuItem value={1}>입고예정</MenuItem>
+                  <MenuItem value={2}>작업전</MenuItem>
+                  <MenuItem value={3}>금일작업</MenuItem>
+                  <MenuItem value={4}>작업완료</MenuItem>
+                  <MenuItem value={5}>출고</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={6} md={4} />
+            <Grid item xs={6} md={4} >
               <TextField
                 label="담당자"
                 margin="dense"
@@ -100,19 +128,7 @@ const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
                 value={values.manager || ''}
               />
             </Grid>
-            <Grid item xs={12} md={5}>
-              <TextField
-                label="카마스터"
-                margin="dense"
-                variant="standard"
-                fullWidth
-                focused
-                name="car_master"
-                onChange={handleInputChange}
-                value={values.car_master || ''}
-              />
-            </Grid>
-            <Grid item xs={12} md={5}>
+            <Grid item xs={12} md={4}>
               <TextField
                 label="차종"
                 margin="dense"
@@ -122,6 +138,18 @@ const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
                 name="car_type"
                 onChange={handleInputChange}
                 value={values.car_type || ''}
+              />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <TextField
+                label="카마스터"
+                margin="dense"
+                variant="standard"
+                fullWidth
+                focused
+                name="car_master"
+                onChange={handleInputChange}
+                value={values.car_master || ''}
               />
             </Grid>
             <Grid item xs={12} md={5}>
@@ -324,7 +352,7 @@ const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
               />
             </Grid>
             <Grid item xs={6} md={2}>
-              <FormHelperText style={{paddingTop:'3px', fontSize: '0.75rem', color: '#1976d2'}}>결재완료</FormHelperText>
+              <FormHelperText style={{paddingTop:'3px', fontSize: '0.75rem', color: '#1976d2'}}>결제완료</FormHelperText>
               <FormControl
                   onChange={handleCheckBoxChange}
                 >
@@ -342,6 +370,7 @@ const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>취소</Button>
+        {updateTask ? <Button onClick={handleDeleteTask}>삭제</Button> : ''}
         <Button onClick={hanldleSubmit}>{updateTask ? '수정' : '추가'}</Button>
       </DialogActions>
     </Dialog>
