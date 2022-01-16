@@ -10,10 +10,19 @@ const useForm = (initialFormValues) => {
     })
   }
 
+  const handleCheckBoxChange = e => {
+    const { name, checked } = e.target;
+    setValues({
+      ...values,
+      [name]: checked ? 'Y' : 'N'
+    })
+  }
+
   return {
     values,
     setValues,
-    handleInputChange
+    handleInputChange,
+    handleCheckBoxChange
   }
 }
 

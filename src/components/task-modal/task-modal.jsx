@@ -50,7 +50,8 @@ const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
   const {
     values,
     setValues,
-    handleInputChange
+    handleInputChange,
+    handleCheckBoxChange,
   } = useForm(initFormValues);
 
   useEffect(() => {
@@ -268,7 +269,7 @@ const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
                     name="glass_film"
                     labelPlacement="end"
                     value="Y"
-                    onChange={handleInputChange}
+                    onChange={handleCheckBoxChange}
                     checked={values.glass_film === 'Y' ? true : false }
                     control={<Checkbox size="small" />}
                   />
@@ -277,7 +278,7 @@ const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
                     name="tinting"
                     labelPlacement="end"
                     value="Y"
-                    onChange={handleInputChange}
+                    onChange={handleCheckBoxChange}
                     checked={values.tinting === 'Y' ? true : false }
                     control={<Checkbox size="small" />}
                   />
@@ -299,13 +300,13 @@ const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
             <Grid item xs={6} md={2}>
               <FormHelperText style={{paddingTop:'3px', fontSize: '0.75rem', color: '#1976d2'}}>출고서류</FormHelperText>
               <FormControl
-                onChange={handleInputChange}
-                checked={values.release_doc === 'Y' ? true : false}
+                onChange={handleCheckBoxChange}
                 >
                 <Checkbox
                   size=""
                   value="Y"
                   name="release_doc"
+                  checked={values.release_doc === 'Y' ? true : false}
                   style={{marginLeft: '8px', verticalAlign: 'middle'}}
                 />
               </FormControl>
@@ -325,14 +326,13 @@ const TaskModal = ({ open, addTask, updateTask, handleClose }) => {
             <Grid item xs={6} md={2}>
               <FormHelperText style={{paddingTop:'3px', fontSize: '0.75rem', color: '#1976d2'}}>결재완료</FormHelperText>
               <FormControl
-                  onChange={handleInputChange}
-                  checked={values?.payment_completed === 'Y' ? true : false}
+                  onChange={handleCheckBoxChange}
                 >
                 <Checkbox
                   size=""
                   value="Y"
                   name="payment_completed"
-                  checked={values?.payment_completed === 'Y' ? true : false}
+                  checked={values.payment_completed === 'Y' ? true : false}
                   style={{marginLeft: '8px', verticalAlign: 'middle'}}
                 />
               </FormControl>
