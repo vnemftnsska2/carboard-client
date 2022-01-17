@@ -97,6 +97,9 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, handleClose }) => {
                 name="delivery_date"
                 onChange={handleInputChange}
                 value={values?.delivery_date?.substr(0, 10) || ''}
+                InputLabelProps={{
+                  shrink: true,
+                }}
               />
             </Grid>
             <Grid item xs={6} md={4} >
