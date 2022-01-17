@@ -87,7 +87,7 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, handleClose }) => {
         <form ref={taskFormRef}>
           <input type="hidden" name="idx" value={values?.idx || ''}/>
           <Grid container spacing={2}>
-            <Grid item xs={6} md={4}>
+            <Grid item xs={12} md={4}>
               <TextField
                 label="입고날짜"
                 type="date"
@@ -97,9 +97,6 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, handleClose }) => {
                 name="delivery_date"
                 onChange={handleInputChange}
                 value={values?.delivery_date?.substr(0, 10) || ''}
-                InputLabelProps={{
-                  shrink: true,
-                }}
               />
             </Grid>
             <Grid item xs={6} md={4} >
