@@ -18,6 +18,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  InputAdornment,
 } from '@mui/material';
 import useForm from '../use-form/useForm';
 import FiberNewOutlinedIcon from '@mui/icons-material/FiberNewOutlined';
@@ -42,9 +43,9 @@ const initFormValues = {
   glass_film: 'N',
   tinting: 'N',
   release_date: '',
-  release_datetime: '',
   release_doc: 'N',
   payment_type: '',
+  payment_amount: 0,
   payment_completed: 'N',
 };
 
@@ -56,6 +57,7 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, handleClose }) => {
     setValues,
     handleInputChange,
     handleCheckBoxChange,
+    handleCurrencyChange,
   } = useForm(initFormValues);
 
   useEffect(() => {
@@ -68,8 +70,11 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, handleClose }) => {
   };
 
   const hanldleSubmit = () => {
-    console.log(values)
-    return;
+    const {payment_amount} = values;
+    if (payment_amount && typeof payment_amount !== 'number') {
+      values.payment_amount = payment_amount.replace(/,/gi, '');
+    }
+
     addTask(values, resetForm);
   };
 
@@ -87,7 +92,7 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, handleClose }) => {
         <form ref={taskFormRef}>
           <input type="hidden" name="idx" value={values?.idx || ''}/>
           <Grid container spacing={2}>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={6} md={4}>
               <TextField
                 label="입고날짜"
                 type="date"
@@ -169,7 +174,7 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, handleClose }) => {
             </Grid>
             <Grid item xs={6} md={5}>
               <TextField
-                label="고객번호"
+                label="고객 연락처"
                 margin="dense"
                 variant="standard"
                 fullWidth
@@ -317,19 +322,20 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, handleClose }) => {
                 </FormGroup>
               </FormControl>
             </Grid>
-            <Grid item xs={6} md={4}>
-              <TextField
-                label="출고날짜"
-                type="date"
-                margin="dense"
-                variant="standard"
-                focused
-                name="release_date"
-                onChange={handleInputChange}
-                value={values?.release_date ? values.release_date.substr(0, 10) : ''}
-              />
+            <Grid item xs={10} md={6}>
+            <TextField
+              label="출고 날짜&시간"
+              type="datetime-local"
+              name="release_date"
+              onChange={handleInputChange}
+              value={values.release_date || ''}
+              sx={{ width: 270 }}
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
             </Grid>
-            <Grid item xs={6} md={2}>
+            <Grid item xs={2} md={2}>
               <FormHelperText style={{paddingTop:'3px', fontSize: '0.75rem', color: '#1976d2'}}>출고서류</FormHelperText>
               <FormControl
                 onChange={handleCheckBoxChange}
@@ -343,19 +349,8 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, handleClose }) => {
                 />
               </FormControl>
             </Grid>
-            <Grid item xs={12} md={6}>
-            <TextField
-              label="출고 날짜&시간"
-              type="datetime-local"
-              name="release_datetime"
-              onChange={handleInputChange}
-              sx={{ width: 270 }}
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
-            </Grid>
-            <Grid item xs={6} md={4}>
+            <Grid item xs md={4}></Grid>
+            <Grid item xs={5} md={5}>
               <TextField
                 label="결제방식"
                 margin="dense"
@@ -367,7 +362,21 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, handleClose }) => {
                 value={values.payment_type || ''}
               />
             </Grid>
-            <Grid item xs={6} md={2}>
+            <Grid item xs={5} md={5}>
+              <TextField
+                label="결제금액"
+                margin="dense"
+                variant="standard"
+                focused
+                name="payment_amount"
+                onChange={handleCurrencyChange}
+                value={values?.payment_amount.toLocaleString('kr-KO') || 0}
+                InputProps={{
+                  endAdornment: <InputAdornment position="end">원</InputAdornment>,
+                }}
+              />
+            </Grid>
+            <Grid item xs={2} md={2}>
               <FormHelperText style={{paddingTop:'3px', fontSize: '0.75rem', color: '#1976d2'}}>결제완료</FormHelperText>
               <FormControl
                   onChange={handleCheckBoxChange}
