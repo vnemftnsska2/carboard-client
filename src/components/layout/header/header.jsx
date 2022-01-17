@@ -2,6 +2,7 @@ import React from 'react';
 import { AppBar, Toolbar, Typography, IconButton} from '@mui/material';
 import { styled, } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
+import LogoImg from '../../../images/carboard-img.jpeg';
 
 const Header = ({ open, handleDrawerOpen, drawerWidth }) => {
 

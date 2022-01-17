@@ -8,7 +8,6 @@ import BuildIcon from '@mui/icons-material/Build';
 import { red, green, grey, } from '@mui/material/colors';
 
 const week = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
-
 const TaskMemo = ({ task, openUpdateModal }) => {
   const getStatusColor = (completed) => {
     if (completed === 'Y') {
@@ -31,8 +30,15 @@ const TaskMemo = ({ task, openUpdateModal }) => {
       const weekStr = week[weekNum];
       return `${formatDate} ${weekStr}`;
     }
-    return '-'
+    return <font color={red[400]}>미정</font>
   };
+
+  const checkOrClear = (data) => {
+    if (data === 'Y') {
+      return <CheckIcon color="success" fontSize=''/>;
+    }
+    return <ClearIcon color="error" fontSize=''/>;
+  }
 
   return (
     <Card sx={{ maxWidth: 400 }} elevation={6}>
@@ -89,14 +95,13 @@ const TaskMemo = ({ task, openUpdateModal }) => {
           코일매트: {task.coil_matt === 'E' ? '없음' : task.coil_matt === 'D' ? '딜러' : '카보드'}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          유리막보증 [{task.glass_film === 'Y' ? <CheckIcon color="error" fontSize=''/> : <ClearIcon color="error" fontSize=''/>}]
-          보증서발행 [{task.glass_film === 'Y' ? <CheckIcon color="error" fontSize=''/> : <ClearIcon color="error" fontSize=''/>}]
+          보증서발행: 유리막 [{checkOrClear(task.glass_film)}] 썬팅 [{checkOrClear(task.tinting)}]
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          출고서류 복사 [{task.release_doc === 'Y' ? <CheckIcon color="success" fontSize=''/> : <ClearIcon color="error" fontSize=''/>}]
+          출고날짜: {getDate(task.release_date)} / 출고서류 복사 [{checkOrClear(task.release_doc)}]
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          출고날짜: { getDate(task.release_date)}
+          출고서류 복사 [{checkOrClear(task.release_doc)}]
         </Typography>
       </CardContent>
     </Card>

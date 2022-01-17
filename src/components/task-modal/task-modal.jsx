@@ -42,6 +42,7 @@ const initFormValues = {
   glass_film: 'N',
   tinting: 'N',
   release_date: '',
+  release_datetime: '',
   release_doc: 'N',
   payment_type: '',
   payment_completed: 'N',
@@ -67,6 +68,8 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, handleClose }) => {
   };
 
   const hanldleSubmit = () => {
+    console.log(values)
+    return;
     addTask(values, resetForm);
   };
 
@@ -117,7 +120,7 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, handleClose }) => {
               </FormControl>
             </Grid>
             <Grid item xs={6} md={4} />
-            <Grid item xs={6} md={4} >
+            <Grid item xs={6} md={3} >
               <TextField
                 label="담당자"
                 margin="dense"
@@ -128,7 +131,7 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, handleClose }) => {
                 value={values.manager || ''}
               />
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={5}>
               <TextField
                 label="차종"
                 margin="dense"
@@ -152,7 +155,7 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, handleClose }) => {
                 value={values.car_master || ''}
               />
             </Grid>
-            <Grid item xs={12} md={5}>
+            <Grid item xs={6} md={3}>
               <TextField
                 label="고객성명"
                 margin="dense"
@@ -164,7 +167,7 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, handleClose }) => {
                 value={values.customer_name || ''}
               />
             </Grid>
-            <Grid item xs={12} md={5}>
+            <Grid item xs={6} md={5}>
               <TextField
                 label="고객번호"
                 margin="dense"
@@ -176,6 +179,7 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, handleClose }) => {
                 value={values.customer_phone || ''}
               />
             </Grid>
+            <Grid item md={4}></Grid>
             <Grid item xs={6} md={3}>
               <TextField
                 label="전면"
@@ -338,6 +342,18 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, handleClose }) => {
                   style={{marginLeft: '8px', verticalAlign: 'middle'}}
                 />
               </FormControl>
+            </Grid>
+            <Grid item xs={12} md={6}>
+            <TextField
+              label="출고 날짜&시간"
+              type="datetime-local"
+              name="release_datetime"
+              onChange={handleInputChange}
+              sx={{ width: 270 }}
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
             </Grid>
             <Grid item xs={6} md={4}>
               <TextField
