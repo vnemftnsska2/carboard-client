@@ -2,10 +2,9 @@ import React from 'react';
 import { AppBar, Toolbar, Typography, IconButton} from '@mui/material';
 import { styled, } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
-import LogoImg from '../../../images/carboard-img.jpeg';
+import Logo from '../../static/images/w-logo.png';
 
 const Header = ({ open, handleDrawerOpen, drawerWidth }) => {
-
   const Header = styled(AppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
     })(({ theme, open }) => ({
@@ -39,10 +38,8 @@ const Header = ({ open, handleDrawerOpen, drawerWidth }) => {
         >
           <MenuIcon />
         </IconButton>
-        <Typography variant="h6" component="div">
-          <u><i><b>
-            <font color="red">C</font>ar<font color="blue">B</font>oard
-          </b></i></u>
+        <Typography variant="h6" component="div" sx={{ lineHeight:'0.6'}}>
+          <img src={Logo} width="150"/>
         </Typography>
       </Toolbar>
     </Header>

@@ -10,11 +10,13 @@ import {
   Stack,
   Paper,
 } from '@mui/material';
-import TaskMemo from '../../task-memo/task-memo';
+// Modal
+import TaskModal from '../../components/task-modal/task-modal';
+import TaskMemo from '../../components/task-memo/task-memo';
+
+//Icons
 import AddTaskIcon from '@mui/icons-material/AddTask';
 
-// Modal
-import TaskModal from '../../task-modal/task-modal';
 
 const Task = ({ taskRepository, }) => {
   const [open, setOpen] = useState(false);

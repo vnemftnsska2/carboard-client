@@ -5,11 +5,14 @@ import App from "./app";
 
 // Respository
 import TaskRepository from "./service/task_repository";
+import { BrowserRouter } from "react-router-dom";
 
 const taskRepository = new TaskRepository();
 ReactDOM.render(
   <React.StrictMode>
-    <App taskRepository={taskRepository} />
+    <BrowserRouter>
+      <App taskRepository={taskRepository} />
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -48,7 +48,7 @@ const TaskMemo = ({ task, openUpdateModal }) => {
       const timeDate = date.substr(11);
       const weekNum = new Date(formatDate).getDay();
       const weekStr = week[weekNum];
-      return `${formatDate} ${weekStr} ‣ ${timeDate}`;
+      return `${formatDate} ${weekStr} ${timeDate ? `‣ ${timeDate}`:''}`;
     }
     return <font color={red[400]}>미정</font>
   };

@@ -1,29 +1,19 @@
 import "./app.css";
 import React, { useState } from "react";
-import { Container, Box, CssBaseline, SpeedDial, SpeedDialIcon, SpeedDialAction } from "@mui/material";
+import {
+  Routes,
+  Route,
+} from "react-router-dom";
+
+// import { Container, Box, CssBaseline, SpeedDial, SpeedDialIcon, SpeedDialAction } from "@mui/material";
 import { styled, useTheme } from "@mui/material/styles";
-import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
-import SaveIcon from '@mui/icons-material/Save';
-import PrintIcon from '@mui/icons-material/Print';
-import ShareIcon from '@mui/icons-material/Share';
-
-// LayOut
-import Header from "./components/layout/header/header";
-import SideBar from "./components/layout/side-bar/side-bar";
-
-// Menu
 
 // 임시
-import Task from "./components/pages/task/task";
+import Task from "./pages/task/task";
+import Login from "./pages/login/login";
+import Home from "./pages/home/home";
 
 const drawerWidth = 240;
-const actions = [
-  { icon: <FileCopyIcon />, name: 'Copy' },
-  { icon: <SaveIcon />, name: 'Save' },
-  { icon: <PrintIcon />, name: 'Print' },
-  { icon: <ShareIcon />, name: 'Share' },
-];
-
 const App = ({ taskRepository }) => {
   const theme = useTheme();
   const [sideBarOpen, setSideBarOpen] = useState(false);
@@ -43,29 +33,16 @@ const App = ({ taskRepository }) => {
     ...theme.mixins.toolbar,
   }));
 
+
+  const user = true;
+
   return (
-    <Container maxWidth={false}>
-      <Box sx={{ display: "flex" }}>
-        <CssBaseline />
-        <Header
-          open={sideBarOpen}
-          drawerWidth={drawerWidth}
-          handleDrawerOpen={handleDrawerOpen}
-        />
-        {/* SideBar */}
-        <SideBar
-          open={sideBarOpen}
-          theme={theme}
-          drawerWidth={drawerWidth}
-          handleDrawerClose={handleDrawerClose}
-          DrawerHeader={DrawerHeader}
-        />
-        <Box sx={{ height: "100vh", width: "100%" }}>
-          <DrawerHeader />
-          <Task taskRepository={taskRepository} />
-        </Box>
-      </Box>
-    </Container>
+    <Routes>
+      <Route path="/" element={<Login />} exact />
+      <Route element={<Home />}>
+        <Route path="task" element={<Task taskRepository={taskRepository}/>} />
+      </Route>
+    </Routes>
   );
 };
 
