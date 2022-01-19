@@ -115,7 +115,10 @@ const TaskMemo = ({ task, openUpdateModal }) => {
           <b>‣ 코일매트</b>: {task.coil_matt === 'E' ? '없음' : task.coil_matt === 'D' ? '딜러' : '카보드'}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          <b>‣ 보증서발행</b>: 유리막 [{checkOrClear(task.glass_film)}] 썬팅 [{checkOrClear(task.tinting)}] <b>‣ 출고서류 복사</b> [{checkOrClear(task.release_doc)}]
+          <b>‣ 보증서발행</b>: 유리막 [{checkOrClear(task.glass_film)}] 썬팅 [{checkOrClear(task.tinting)}]
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+        <b>‣ 출고서류</b>: 복사 [{checkOrClear(task.release_doc)}]
         </Typography>
         <Typography variant="body2" color="text.secondary">
           <b>‣ 출고날짜</b>: {getDate(task.release_date)} 

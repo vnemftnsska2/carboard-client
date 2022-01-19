@@ -33,14 +33,13 @@ const Task = ({ taskRepository, }) => {
     }
   };
 
-  const addTask = async (task, reset) => {
+  const addTask = async (task) => {
     const isNewTask = task.idx ? false : true;
     if (isNewTask) {
       const result = await taskRepository.ayncAddTask(task);
       if (result.status === 200) {
         alert('신규 작업이 추가되었습니다 🚙 🚘 🚕');
         closeTaskModal();
-        reset();
         getTaskList();
       } else {
         alert('진행중 에러가 발생하였습니다 😡')
@@ -51,7 +50,6 @@ const Task = ({ taskRepository, }) => {
       if (result.status === 200) {
         alert(`no.${task.idx} 작업이 수정되었습니다 🚙 🚘 🚕`);
         closeTaskModal();
-        reset();
         getTaskList();
       } else {
         alert('진행중 에러가 발생하였습니다 😡')
@@ -59,12 +57,11 @@ const Task = ({ taskRepository, }) => {
     }
   };
 
-  const deleteTask = async(task, reset) => {
+  const deleteTask = async(task) => {
     const result = await taskRepository.ayncDeleteTask(task);
       if (result.status === 200) {
         alert(`no.${task.idx} 작업이 삭제되었습니다 🗑`);
         closeTaskModal();
-        reset();
         getTaskList();
       } else {
         alert('진행중 에러가 발생하였습니다 😡')

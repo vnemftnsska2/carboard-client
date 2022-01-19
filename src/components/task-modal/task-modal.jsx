@@ -62,11 +62,11 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, handleClose }) => {
 
   useEffect(() => {
     setValues({ ...initFormValues, ...updateTask });
-  }, [updateTask])
+  }, [open])
 
   const handleDeleteTask = () => {
     if (!window.confirm(`해당 작업지시서를 삭제하시겠습니까?`)) return
-    deleteTask(values, resetForm);
+    deleteTask(values);
   };
 
   const hanldleSubmit = () => {
@@ -75,12 +75,7 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, handleClose }) => {
       values.payment_amount = payment_amount.replace(/,/gi, '');
     }
 
-    addTask(values, resetForm);
-  };
-
-  const resetForm = () => {
-    const taskForm = taskFormRef.current;
-    taskForm.reset();
+    addTask(values);
   };
 
   return (
