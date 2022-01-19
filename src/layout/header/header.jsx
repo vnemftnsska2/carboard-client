@@ -1,7 +1,6 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography, IconButton} from '@mui/material';
 import { styled, } from '@mui/material/styles';
-import { grey, } from '@mui/material/colors';
 import MenuIcon from '@mui/icons-material/Menu';
 import Logo from '../../static/images/w-logo.png';
 
@@ -27,7 +26,7 @@ const Header = ({ open, handleDrawerOpen, drawerWidth }) => {
 
   return (
     <Header position="fixed" open={open}>
-      <Toolbar sx={{ backgroundColor: grey[500],}}>
+      <Toolbar sx={{ backgroundColor: 'black',}}>
         <IconButton
           color="inherit"
           aria-label="open drawer"
