@@ -10,7 +10,29 @@ import {
 } from '@mui/material';
 import { styled, } from '@mui/material/styles';
 
-// Icons
+//Menu Icons
+//Dashboard
+import AutoGraphIcon from '@mui/icons-material/AutoGraph';
+import LaptopChromebookIcon from '@mui/icons-material/LaptopChromebook';
+//공지사항
+import CampaignIcon from '@mui/icons-material/Campaign';
+//업무지시서
+import ListAltIcon from '@mui/icons-material/ListAlt';
+//재고관리
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+//거래처 관리
+import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
+//사원관리
+import PortraitIcon from '@mui/icons-material/Portrait';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+//고객관리
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+//환경설정
+import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
+
+
+
+//Temp Icons
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
