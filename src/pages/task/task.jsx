@@ -41,7 +41,7 @@ const Task = ({ taskRepository, }) => {
   const handleClickSearchBtn = e => {
     const keyword = keywordRef.current.value;
     const searchTaskList = allList
-      .filter(v => JSON.stringify(v).indexOf(keyword) > -1);
+      .filter(v => JSON.stringify(v).toLowerCase().indexOf(keyword) > -1);
     setTaskList(searchTaskList);
   };
 
