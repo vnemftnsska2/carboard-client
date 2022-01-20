@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Container, Box, CssBaseline, } from "@mui/material";
 import { styled, useTheme } from "@mui/material/styles";
 import { Outlet } from 'react-router-dom';
+import { grey, } from '@mui/material/colors';
 
 //Layout
 import Header from '../../layout/header/header';
@@ -28,8 +29,8 @@ const Home = (props) => {
   }));
 
   return (
-    <Container maxWidth={false}>
-      <Box sx={{ display: "flex" }}>
+    <Container maxWidth={false} sx={{ backgroundColor:grey[100] }}>
+      <Box sx={{ display: "flex", backgroundColor:grey[100] }}>
         <CssBaseline />
         {/* Header */}
         <Header
@@ -47,7 +48,7 @@ const Home = (props) => {
           DrawerHeader={DrawerHeader}
         />
         {/* Contents */}
-        <Box sx={{ height: "100vh", width: "100%" }}>
+        <Box sx={{ height: "100vh", width: "100%", backgroundColor:grey[100] }}>
           <DrawerHeader />
           <Outlet />
           {/* <Task taskRepository={taskRepository} /> */}

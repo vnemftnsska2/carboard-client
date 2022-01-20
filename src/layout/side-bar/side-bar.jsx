@@ -8,6 +8,7 @@ import {
   Divider,
   List,
 } from '@mui/material';
+import { Link } from "react-router-dom";
 import { styled, } from '@mui/material/styles';
 
 //Menu Icons
@@ -37,6 +38,49 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+
+const menuList = [
+  {
+    icon: <LaptopChromebookIcon />,
+    name: 'Dashboard',
+    link: '/dashboard',
+  },
+  {
+    icon: <CampaignIcon />,
+    name: '공지사항',
+    link: '/notice',
+  },
+  {
+    icon: <ListAltIcon />,
+    name: '업무지시서',
+    link: '/task',
+  },
+  {
+    icon: <AddShoppingCartIcon />,
+    name: '재고관리',
+    link: '/inventory',
+  },
+  {
+    icon: <ContactPhoneIcon />,
+    name: '거래처',
+    link: '/business',
+  },
+  {
+    icon: <ManageAccountsIcon />,
+    name: '사원관리',
+    link: '/employee',
+  },
+  {
+    icon: <PeopleAltIcon />,
+    name: '고객관리',
+    link: '/customer',
+  },
+  {
+    icon: <SettingsSuggestIcon />,
+    name: '환경설정',
+    link: '/setting',
+  },
+];
 
 const SideBar = ({ handleDrawerClose, DrawerHeader, theme, open, drawerWidth, }) => {
   const SideBar = styled(Drawer, { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -86,13 +130,15 @@ const SideBar = ({ handleDrawerClose, DrawerHeader, theme, open, drawerWidth, })
         </DrawerHeader>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
+          {menuList.map((menu, index) => (
+            <Link to={menu.link} key={menu.name} style={{ textDecoration: 'none', }}>
+              <ListItem button key={menu.name}>
+                <ListItemIcon>
+                  {menu.icon}
+                </ListItemIcon>
+                <ListItemText secondary={menu.name}/>
+              </ListItem>
+            </Link>
           ))}
         </List>
       </SideBar>

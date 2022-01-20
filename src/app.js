@@ -1,46 +1,35 @@
 import "./app.css";
 import React, { useState } from "react";
-import {
-  Routes,
-  Route,
-} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
-// import { Container, Box, CssBaseline, SpeedDial, SpeedDialIcon, SpeedDialAction } from "@mui/material";
-import { styled, useTheme } from "@mui/material/styles";
-
-// 임시
+//Route Page Components
 import Task from "./pages/task/task";
 import Login from "./pages/login/login";
 import Home from "./pages/home/home";
+import Dashboard from "./pages/dashboard/dashboard";
+import Notice from "./pages/notice/notice";
+import Inventory from "./pages/inventory/inventory";
+import Business from "./pages/business/business";
+import Employee from "./pages/employee/employee";
+import Customer from "./pages/customer/customer";
+import Setting from "./pages/setting/setting";
 
-const drawerWidth = 240;
 const App = ({ taskRepository }) => {
-  const theme = useTheme();
-  const [sideBarOpen, setSideBarOpen] = useState(false);
-  const handleDrawerOpen = () => {
-    setSideBarOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setSideBarOpen(false);
-  };
-
-  const DrawerHeader = styled("div")(({ theme }) => ({
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    padding: theme.spacing(0, 1),
-    ...theme.mixins.toolbar,
-  }));
-
-
   const user = true;
+  const [userKey, setUserKey] = useState("");
 
   return (
     <Routes>
       <Route path="/" element={<Login />} exact />
       <Route element={<Home />}>
-        <Route path="task" element={<Task taskRepository={taskRepository}/>} />
+        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="notice" element={<Notice />} />
+        <Route path="task" element={<Task taskRepository={taskRepository} />} />
+        <Route path="inventory" element={<Inventory />} />
+        <Route path="business" element={<Business />} />
+        <Route path="employee" element={<Employee />} />
+        <Route path="customer" element={<Customer />} />
+        <Route path="setting" element={<Setting />} />
       </Route>
     </Routes>
   );
