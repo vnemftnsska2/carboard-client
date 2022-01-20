@@ -1,10 +1,11 @@
 import React from 'react';
-import { Card, CardHeader, CardContent, Typography, Avatar, } from '@mui/material';
+import { Card, CardHeader, CardContent, Typography, Avatar, Button } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import BuildIcon from '@mui/icons-material/Build';
+import PaymentCompletedImg from '../../static/images/payment_completed.png';
 import { red, pink, blue, cyan, teal, deepOrange, grey, } from '@mui/material/colors';
 
 import AndroidIcon from '@mui/icons-material/Android';
@@ -80,6 +81,7 @@ const TaskMemo = ({ task, openUpdateModal }) => {
       <CardContent>
         <Typography variant="body2" color="text.secondary">
           <b>‣ 카마스터</b>: {task.car_master}
+          <img src={PaymentCompletedImg} style={{ position: 'static', zIndex: 1, float: 'right'}} />
         </Typography>
         <Typography variant="body2" color="text.secondary">
           <b>‣ 고객성명</b>: {task.customer_name}
@@ -124,6 +126,7 @@ const TaskMemo = ({ task, openUpdateModal }) => {
           <b>‣ 출고날짜</b>: {getDate(task.release_date)} 
         </Typography>
         <Typography variant="body2" color="text.secondary">
+          
           <b>‣ 결제금액</b>: {task.payment_amount.toLocaleString('kr-KO')} <b>‣ 결제방식</b>: {task.payment_type}
         </Typography>
       </CardContent>
