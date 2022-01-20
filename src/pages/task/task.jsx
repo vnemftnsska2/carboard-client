@@ -126,7 +126,7 @@ const Task = ({ taskRepository, }) => {
                 <MenuItem value={2}>작업전</MenuItem>
                 <MenuItem value={3}>금일작업</MenuItem>
                 <MenuItem value={4}>작업완료</MenuItem>
-                <MenuItem value={5}>출고</MenuItem>
+                <MenuItem value={5}>기재완료</MenuItem>
               </Select>
             </FormControl>
           </Grid>
