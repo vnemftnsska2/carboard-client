@@ -78,10 +78,16 @@ const TaskMemo = ({ task, openUpdateModal }) => {
         title={<font size="4"><b>{task.car_type}</b></font>}
         subheader={ getDate(task.delivery_date) }
       />
-      <CardContent>
+      <CardContent
+        sx={{
+          backgroundImage: `url(${task.payment_completed === 'Y' ? PaymentCompletedImg : ''})`,
+          backgroundRepeat:'no-repeat',
+          backgroundPosition:'right top',
+        }}
+      >
         <Typography variant="body2" color="text.secondary">
           <b>‣ 카마스터</b>: {task.car_master}
-          <img src={PaymentCompletedImg} style={{ position: 'static', zIndex: 1, float: 'right'}} />
+          {/* <img src={PaymentCompletedImg} style={{ position: 'static', zIndex: 1, float: 'right'}} /> */}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           <b>‣ 고객성명</b>: {task.customer_name}
