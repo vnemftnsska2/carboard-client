@@ -82,7 +82,6 @@ const Task = ({ taskRepository, }) => {
         alert('진행중 에러가 발생하였습니다 😡')
       }
     } else {
-      
       const result = await taskRepository.ayncUpdateTask(formData);
       if (result.status === 200) {
         alert(`no.${task.idx} 작업이 수정되었습니다 🚙 🚘 🚕`);

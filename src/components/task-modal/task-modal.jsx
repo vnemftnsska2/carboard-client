@@ -102,7 +102,7 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, deleteImg, handleClo
                 focused
                 name="delivery_date"
                 onChange={handleInputChange}
-                value={values?.delivery_date?.substr(0, 10) || ''}
+                value={values.delivery_date ? values.delivery_date : ''}
               />
             </Grid>
             <Grid item xs={6} md={4} >
@@ -415,6 +415,7 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, deleteImg, handleClo
                     sx={{ color: 'white' }}
                     onClick={() => {
                       if (window.confirm('이미지를 삭제하시겠습니까?')) {
+                        values.release_img = '';
                         setReleaseImg('');
                         deleteImg(values.idx);
                       }
