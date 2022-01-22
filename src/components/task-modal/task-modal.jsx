@@ -372,7 +372,7 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, handleClose }) => {
               />
             </Grid>
             <Grid item xs={2} md={2}>
-              <FormHelperText style={{paddingTop:'3px', fontSize: '0.75rem', color: '#1976d2'}}>결제완료</FormHelperText>
+              <FormHelperText style={{paddingTop:'3px', fontSize: '0.75rem', color: '#1976d2'}}>기재완료</FormHelperText>
               <FormControl
                   onChange={handleCheckBoxChange}
                 >
