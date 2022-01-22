@@ -7,7 +7,8 @@ import App from "./app";
 import TaskRepository from "./service/task_repository";
 import { BrowserRouter } from "react-router-dom";
 
-const taskRepository = new TaskRepository();
+const API_SERVER = process.env.REACT_APP_API_SERVER;
+const taskRepository = new TaskRepository(API_SERVER);
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>

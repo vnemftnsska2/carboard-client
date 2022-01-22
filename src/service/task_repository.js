@@ -1,6 +1,10 @@
 class TaskRepository {
+  constructor(API_SERVER) {
+    this.SERVER = API_SERVER;
+  }
+
   async asyncTaskList(key) {
-    const result = await fetch(`/api/tasks/t/${key}`, {
+    const result = await fetch(`${this.SERVER}/api/tasks/t/${key}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -12,7 +16,7 @@ class TaskRepository {
   }
 
   async asyncTaskById(key) {
-    const result = await fetch(`/api/tasks/${key}`, {
+    const result = await fetch(`${this.SERVER}/api/tasks/${key}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -24,7 +28,7 @@ class TaskRepository {
   }
 
   async ayncAddTask(task) {
-    const result = await fetch("/api/task", {
+    const result = await fetch(`${this.SERVER}/api/task`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -38,7 +42,7 @@ class TaskRepository {
   }
 
   async ayncUpdateTask(task) {
-    const result = await fetch(`/api/task/${task.idx}`, {
+    const result = await fetch(`${this.SERVER}/api/task/${task.idx}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -52,7 +56,7 @@ class TaskRepository {
   }
 
   async ayncDeleteTask(task) {
-    const result = await fetch(`/api/task/${task.idx}`, {
+    const result = await fetch(`${this.SERVER}/api/task/${task.idx}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
