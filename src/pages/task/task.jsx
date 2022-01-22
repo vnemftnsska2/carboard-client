@@ -11,24 +11,27 @@ import {
   Paper,
   TextField,
 } from '@mui/material';
+//Task List
+import TaskMemo from '../../components/task-memo/task-memo';
 // Modal
 import TaskModal from '../../components/task-modal/task-modal';
-import TaskMemo from '../../components/task-memo/task-memo';
-
-//Icons
-import AddTaskIcon from '@mui/icons-material/AddTask';
+import ImgViewer from '../../components/img-viewer/img-viewer';
 
 
 const Task = ({ taskRepository, }) => {
-  const [open, setOpen] = useState(false);
+  const [allList, setAllList] = useState([]);
+  const [taskList, setTaskList] = useState([]);
+  const [updateTask, setUpdateTask] = useState(null);
+  
   const [searchStatus, setSearchStatus] = useState(0);
   const keywordRef = useRef();
   const searchBtnRef = useRef();
 
-  const [allList, setAllList] = useState([]);
-  const [taskList, setTaskList] = useState([]);
-  const [updateTask, setUpdateTask] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [imgOpen, setImgOpen] = useState(false);
+  const [imgFileName, setImgFileName] = useState('');
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const getTaskList = async () => {
     const data = await taskRepository.asyncTaskList(searchStatus);
     if (!data?.fatal) {
@@ -48,6 +51,7 @@ const Task = ({ taskRepository, }) => {
         } else if (taskToJson.indexOf(keyword) > -1) {
           return v;
         }
+        return false;
       });
     setTaskList(searchTaskList);
   };
@@ -61,8 +65,15 @@ const Task = ({ taskRepository, }) => {
   //Task Action
   const addTask = async (task) => {
     const isNewTask = task.idx ? false : true;
+    const formData = new FormData();
+    for (let key in task) {
+      if (key !== 'rowno') {
+        formData.append(key, task[key]);
+      }
+    }
+
     if (isNewTask) {
-      const result = await taskRepository.ayncAddTask(task);
+      const result = await taskRepository.ayncAddTask(formData);
       if (result.status === 200) {
         alert('신규 작업이 추가되었습니다 🚙 🚘 🚕');
         closeTaskModal();
@@ -71,13 +82,14 @@ const Task = ({ taskRepository, }) => {
         alert('진행중 에러가 발생하였습니다 😡')
       }
     } else {
-      delete task.rowno;
-      const result = await taskRepository.ayncUpdateTask(task);
+      
+      const result = await taskRepository.ayncUpdateTask(formData);
       if (result.status === 200) {
         alert(`no.${task.idx} 작업이 수정되었습니다 🚙 🚘 🚕`);
         closeTaskModal();
         getTaskList();
       } else {
+        console.log(result)
         alert('진행중 에러가 발생하였습니다 😡')
       }
     }
@@ -94,6 +106,15 @@ const Task = ({ taskRepository, }) => {
       }
   }
 
+  const deleteReleaseImg = async(idx) => {
+    const result = await taskRepository.ayncDeleteReleaseImg(idx);
+    if (result.status === 200) {
+      getTaskList();
+    } else {
+      alert('진행중 에러가 발생하였습니다 😡')
+    }
+  }
+
   // Init
   useEffect(getTaskList, [taskRepository, searchStatus]);
 
@@ -101,9 +122,15 @@ const Task = ({ taskRepository, }) => {
     setUpdateTask(task || null);
     setOpen(true)
   };
-  const closeTaskModal = () => {
-    setOpen(false);
-  };
+  const closeTaskModal = () => setOpen(false);
+
+  const openImgViewer = (fileName) => {
+    console.log(fileName)
+    setImgFileName(fileName || '');
+    setImgOpen(true);
+  }
+
+  const closeImgViewer = () => setImgOpen(false);
 
   return (
     <Box>
@@ -160,8 +187,6 @@ const Task = ({ taskRepository, }) => {
             </Button>
           </Grid>
         </Grid>
-        {/* <Stack direction="row" alignItems="flex-end" justifyContent="space-between" spacing={3}>
-        </Stack> */}
       </Paper>
       <Paper sx={{marginTop: '1em', padding: '1em', minHeight: '80vh'}}>
         <Grid container spacing={2}>
@@ -172,6 +197,7 @@ const Task = ({ taskRepository, }) => {
                   key={v.idx}
                   task={v}
                   openUpdateModal={openTaskModal}
+                  openImgViewer={openImgViewer}
                 ></TaskMemo>
               </Grid>
             )
@@ -184,7 +210,13 @@ const Task = ({ taskRepository, }) => {
           addTask={addTask}
           updateTask={updateTask}
           deleteTask={deleteTask}
+          deleteImg={deleteReleaseImg}
           handleClose={closeTaskModal}
+        />
+        <ImgViewer
+          open={imgOpen}
+          fileName={imgFileName}
+          handleClose={closeImgViewer}
         />
       </Paper>
     </Box>

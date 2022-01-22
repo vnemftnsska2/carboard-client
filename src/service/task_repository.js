@@ -30,10 +30,7 @@ class TaskRepository {
   async ayncAddTask(task) {
     const result = await fetch(`${this.SERVER}/api/task`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(task),
+      body: task,
     }).catch((err) => {
       console.log(err)
       return JSON.parse({status: 400});
@@ -44,10 +41,7 @@ class TaskRepository {
   async ayncUpdateTask(task) {
     const result = await fetch(`${this.SERVER}/api/task/${task.idx}`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(task),
+      body: task,
     }).catch((err) => {
       console.log(err)
       return JSON.parse({status: 400});
@@ -62,6 +56,20 @@ class TaskRepository {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(task),
+    }).catch((err) => {
+      console.log(err)
+      return JSON.parse({status: 400});
+    });
+    return result.json();
+  }
+
+  async ayncDeleteReleaseImg(idx) {
+    const result = await fetch(`${this.SERVER}/api/task/image/${idx}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({idx}),
     }).catch((err) => {
       console.log(err)
       return JSON.parse({status: 400});

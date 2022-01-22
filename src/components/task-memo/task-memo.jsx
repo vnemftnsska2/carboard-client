@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardHeader, CardContent, Typography, Avatar, Button } from '@mui/material';
+import { Card, CardHeader, CardContent, Typography, Avatar, } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CheckIcon from '@mui/icons-material/Check';
@@ -14,7 +14,7 @@ import MilitaryTechIcon from '@mui/icons-material/MilitaryTech';
 import TimeToLeaveIcon from '@mui/icons-material/TimeToLeave';
 
 const week = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
-const TaskMemo = ({ task, openUpdateModal }) => {
+const TaskMemo = ({ task, openUpdateModal, openImgViewer }) => {
   const getStatusColor = (status) => {
     if (status === 1) { //입고예정
       return cyan[400];
@@ -61,6 +61,14 @@ const TaskMemo = ({ task, openUpdateModal }) => {
     return <ClearIcon color="error" fontSize=''/>;
   }
 
+  const setEllipsis = (fileName) => {
+    let styleFileName = fileName;
+    if (fileName.length > 30) {
+      styleFileName = fileName.substring(0, 30) + '...';
+    }
+    return <font color={blue[700]}><b>{styleFileName}</b></font>;
+  }
+
   return (
     <Card sx={{ maxWidth: 400 }} elevation={6}>
       <CardHeader
@@ -87,7 +95,6 @@ const TaskMemo = ({ task, openUpdateModal }) => {
       >
         <Typography variant="body2" color="text.secondary">
           <b>‣ 카마스터</b>: {task.car_master}
-          {/* <img src={PaymentCompletedImg} style={{ position: 'static', zIndex: 1, float: 'right'}} /> */}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           <b>‣ 고객성명</b>: {task.customer_name}
@@ -132,8 +139,16 @@ const TaskMemo = ({ task, openUpdateModal }) => {
           <b>‣ 출고날짜</b>: {getDate(task.release_date)} 
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          
           <b>‣ 결제금액</b>: {task.payment_amount.toLocaleString('kr-KO')} <b>‣ 결제방식</b>: {task.payment_type}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          <b>‣ 결재봉투</b>: {task.release_img ?
+            <span
+              onClick={() => { openImgViewer(task.release_img)}}
+            >
+              {setEllipsis(task.release_img)}
+            </span>
+            : <ClearIcon color="error" fontSize=''/> }
         </Typography>
       </CardContent>
     </Card>

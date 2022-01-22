@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, } from 'react';
+import React, { useRef, useEffect, useState, } from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -19,9 +19,13 @@ import {
   Select,
   MenuItem,
   InputAdornment,
+  ImageListItem,
+  ImageListItemBar,
+  IconButton,
 } from '@mui/material';
 import useForm from '../use-form/useForm';
 import FiberNewOutlinedIcon from '@mui/icons-material/FiberNewOutlined';
+import ClearIcon from '@mui/icons-material/HighlightOff';
 
 const initFormValues = {
   status: 1,
@@ -49,8 +53,9 @@ const initFormValues = {
   payment_completed: 'N',
 };
 
-const TaskModal = ({ open, addTask, updateTask, deleteTask, handleClose }) => {
+const TaskModal = ({ open, addTask, updateTask, deleteTask, deleteImg, handleClose }) => {
   const taskFormRef = useRef();
+  const [releaseImg, setReleaseImg] = useState('');
 
   const {
     values,
@@ -58,14 +63,16 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, handleClose }) => {
     handleInputChange,
     handleCheckBoxChange,
     handleCurrencyChange,
+    handleFileUpload,
   } = useForm(initFormValues);
 
   useEffect(() => {
+    setReleaseImg(updateTask?.release_img || '');
     setValues({ ...initFormValues, ...updateTask });
-  }, [open])
+  }, [open, setValues, updateTask])
 
   const handleDeleteTask = () => {
-    if (!window.confirm(`해당 작업지시서를 삭제하시겠습니까?`)) return
+    if (!window.confirm(`해당 작업지시서를 삭제하시겠습니까?`)) return;
     deleteTask(values);
   };
 
@@ -74,7 +81,6 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, handleClose }) => {
     if (payment_amount && typeof payment_amount !== 'number') {
       values.payment_amount = payment_amount.replace(/,/gi, '');
     }
-
     addTask(values);
   };
 
@@ -131,7 +137,7 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, handleClose }) => {
                 value={values.manager || ''}
               />
             </Grid>
-            <Grid item xs={12} md={5}>
+            <Grid item xs={6} md={5}>
               <TextField
                 label="차종"
                 margin="dense"
@@ -143,7 +149,7 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, handleClose }) => {
                 value={values.car_type || ''}
               />
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={6} md={4}>
               <TextField
                 label="카마스터"
                 margin="dense"
@@ -385,6 +391,47 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, handleClose }) => {
                 />
               </FormControl>
             </Grid>
+          </Grid>
+          <Grid item xs={12} md={12}>
+            {releaseImg ?
+            <ImageListItem>
+              <img
+                src={`http://localhost:3030/image/${releaseImg}`}
+                alt={releaseImg}
+                width={200}
+                height={100}
+                loading="lazy"
+                sx={{display: 'block'}}
+              />
+              <ImageListItemBar
+                sx={{
+                  background:
+                    'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
+                    'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+                }}
+                position="top"
+                actionIcon={
+                  <IconButton
+                    sx={{ color: 'white' }}
+                    onClick={() => {
+                      if (window.confirm('이미지를 삭제하시겠습니까?')) {
+                        setReleaseImg('');
+                        deleteImg(values.idx);
+                      }
+                    }}
+                  >
+                    <ClearIcon />
+                  </IconButton>
+                }
+                actionPosition="right"
+              />
+            </ImageListItem>
+            :
+            <TextField
+              type="file"
+              name="release_img"
+              onChange={handleFileUpload}
+            />}
           </Grid>
         </form>
       </DialogContent>

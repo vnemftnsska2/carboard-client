@@ -39,6 +39,14 @@ const useForm = (initialFormValues) => {
     })
   }
 
+  const handleFileUpload = e => {
+    const { name, files } = e.target;
+    setValues({
+      ...values,
+      [name]: files[0],
+    });
+  };
+
   return {
     values,
     setValues,
@@ -46,6 +54,7 @@ const useForm = (initialFormValues) => {
     isNumberAndPositive,
     handleCheckBoxChange,
     handleCurrencyChange,
+    handleFileUpload,
   }
 }
 
