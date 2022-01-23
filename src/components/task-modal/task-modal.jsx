@@ -26,6 +26,9 @@ import {
 import useForm from '../use-form/useForm';
 import FiberNewOutlinedIcon from '@mui/icons-material/FiberNewOutlined';
 import ClearIcon from '@mui/icons-material/HighlightOff';
+import DatePicker from '@mui/lab/DatePicker';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
 
 const initFormValues = {
   status: 1,
@@ -84,6 +87,12 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, deleteImg, handleClo
     addTask(values);
   };
 
+  const [value, setValue] = React.useState(new Date('2014-08-18T21:11:54'));
+
+  const handleDateChange = (newValue) => {
+    setValue(newValue);
+  };
+
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>
@@ -94,6 +103,17 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, deleteImg, handleClo
           <input type="hidden" name="idx" value={values?.idx || ''}/>
           <Grid container spacing={2}>
             <Grid item xs={6} md={4}>
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DatePicker
+                  label="For mobile"
+                  mask="____/__/__"
+                  value={value}
+                  onChange={(newValue) => {
+                    setValue(newValue);
+                  }}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </LocalizationProvider>
               <TextField
                 label="입고날짜"
                 type="date"
