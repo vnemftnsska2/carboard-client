@@ -29,10 +29,12 @@ import ClearIcon from '@mui/icons-material/HighlightOff';
 import DatePicker from '@mui/lab/DatePicker';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import FileCopyOutlinedIcon from '@mui/icons-material/FileCopyOutlined';
+import dayjs from "dayjs";
 
 const initFormValues = {
   status: 1,
-  delivery_date: '',
+  delivery_date: dayjs().format('YYYY-MM-DD'),
   manager: '',
   car_master: '',
   car_type: '',
@@ -67,6 +69,7 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, deleteImg, handleClo
     handleCheckBoxChange,
     handleCurrencyChange,
     handleFileUpload,
+    handleDatePicker,
   } = useForm(initFormValues);
 
   useEffect(() => {
@@ -87,12 +90,6 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, deleteImg, handleClo
     addTask(values);
   };
 
-  const [value, setValue] = React.useState(new Date('2014-08-18T21:11:54'));
-
-  const handleDateChange = (newValue) => {
-    setValue(newValue);
-  };
-
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>
@@ -101,29 +98,18 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, deleteImg, handleClo
       <DialogContent>
         <form ref={taskFormRef}>
           <input type="hidden" name="idx" value={values?.idx || ''}/>
-          <Grid container spacing={2}>
+          <Grid container spacing={2} sx={{paddingTop: '0.5em'}}>
             <Grid item xs={6} md={4}>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker
-                  label="For mobile"
-                  mask="____/__/__"
-                  value={value}
-                  onChange={(newValue) => {
-                    setValue(newValue);
-                  }}
-                  renderInput={(params) => <TextField {...params} />}
+                  label="입고날짜"
+                  inputFormat={"yyyy-MM-dd"}
+                  mask={"____-__-__"}
+                  value={values.delivery_date}
+                  onChange={handleDatePicker}
+                  renderInput={(params) => <TextField {...params } />}
                 />
               </LocalizationProvider>
-              <TextField
-                label="입고날짜"
-                type="date"
-                margin="dense"
-                variant="standard"
-                focused
-                name="delivery_date"
-                onChange={handleInputChange}
-                value={values.delivery_date ? values.delivery_date : ''}
-              />
             </Grid>
             <Grid item xs={6} md={4} >
               <FormControl fullWidth variant="standard" sx={{ m: 1, minWidth: 120 }}>
@@ -145,8 +131,9 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, deleteImg, handleClo
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={6} md={4} />
-            <Grid item xs={6} md={3} >
+          </Grid>
+          <Grid container item spacing={3}>
+            <Grid item xs={6} md={3}>
               <TextField
                 label="담당자"
                 margin="dense"
@@ -155,18 +142,6 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, deleteImg, handleClo
                 name="manager"
                 onChange={handleInputChange}
                 value={values.manager || ''}
-              />
-            </Grid>
-            <Grid item xs={6} md={5}>
-              <TextField
-                label="차종"
-                margin="dense"
-                variant="standard"
-                fullWidth
-                focused
-                name="car_type"
-                onChange={handleInputChange}
-                value={values.car_type || ''}
               />
             </Grid>
             <Grid item xs={6} md={4}>
@@ -181,6 +156,20 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, deleteImg, handleClo
                 value={values.car_master || ''}
               />
             </Grid>
+            <Grid item xs={12} md={5}>
+              <TextField
+                label="차종"
+                margin="dense"
+                variant="standard"
+                fullWidth
+                focused
+                name="car_type"
+                onChange={handleInputChange}
+                value={values.car_type || ''}
+              />
+            </Grid>
+          </Grid>
+          <Grid container item spacing={3}>
             <Grid item xs={6} md={3}>
               <TextField
                 label="고객성명"
@@ -193,7 +182,7 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, deleteImg, handleClo
                 value={values.customer_name || ''}
               />
             </Grid>
-            <Grid item xs={6} md={5}>
+            <Grid item xs={6} md={4}>
               <TextField
                 label="고객 연락처"
                 margin="dense"
@@ -205,7 +194,8 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, deleteImg, handleClo
                 value={values.customer_phone || ''}
               />
             </Grid>
-            <Grid item md={4}></Grid>
+          </Grid>
+          <Grid container item spacing={3}> 
             <Grid item xs={6} md={3}>
               <TextField
                 label="전면"
@@ -253,7 +243,9 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, deleteImg, handleClo
                 value={values.car_back || ''}
               />
             </Grid>
-            <Grid item xs={6} md={4}>
+          </Grid>
+          <Grid container item spacing={3}>
+            <Grid item xs={6} md={6}>
               <TextField
                 label="파노라마"
                 margin="dense"
@@ -265,7 +257,7 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, deleteImg, handleClo
                 value={values.panorama || ''}
               />
             </Grid>
-            <Grid item xs={6} md={4}>
+            <Grid item xs={6} md={6}>
               <TextField
                 label="블랙박스"
                 margin="dense"
@@ -277,7 +269,7 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, deleteImg, handleClo
                 value={values.blackbox || ''}
               />
             </Grid>
-            <Grid item xs={6} md={4}>
+            <Grid item xs={6} md={6}>
               <TextField
                 label="PPF"
                 margin="dense"
@@ -289,7 +281,7 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, deleteImg, handleClo
                 value={values.ppf || ''}
               />
             </Grid>
-            <Grid item xs={6} md={12}>
+            <Grid item xs={6} md={6}>
               <TextField
                 label="기타"
                 margin="dense"
@@ -301,6 +293,8 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, deleteImg, handleClo
                 value={values.etc || ''}
               />
             </Grid>
+          </Grid>
+          <Grid container item spacing={3}>
             <Grid item xs={12} md={6}>
               <FormControl component="fieldset">
                 <FormLabel component="legend" style={{ fontSize: '0.7rem', color: '#1976d2'}}>코일매트</FormLabel>
@@ -319,59 +313,62 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, deleteImg, handleClo
               </FormControl>
             </Grid>
             <Grid item xs={12} md={6}>
-            <FormControl component="fieldset">
-              <FormLabel component="legend" style={{fontSize: '0.7rem', color: '#1976d2'}}>보증서</FormLabel>
-                <FormGroup aria-label="position" row>
-                  <FormControlLabel
-                    label="유리막"
-                    name="glass_film"
-                    labelPlacement="end"
-                    value="Y"
-                    onChange={handleCheckBoxChange}
-                    checked={values.glass_film === 'Y' ? true : false }
-                    control={<Checkbox size="small" />}
-                  />
-                  <FormControlLabel
-                    label="썬팅"
-                    name="tinting"
-                    labelPlacement="end"
-                    value="Y"
-                    onChange={handleCheckBoxChange}
-                    checked={values.tinting === 'Y' ? true : false }
-                    control={<Checkbox size="small" />}
-                  />
+              <FormControl component="fieldset">
+                <FormLabel component="legend" style={{fontSize: '0.7rem', color: '#1976d2'}}>보증서</FormLabel>
+                  <FormGroup aria-label="position" row>
+                    <FormControlLabel
+                      label="유리막"
+                      name="glass_film"
+                      labelPlacement="end"
+                      value="Y"
+                      onChange={handleCheckBoxChange}
+                      checked={values.glass_film === 'Y' ? true : false }
+                      control={<Checkbox size="small" />}
+                    />
+                    <FormControlLabel
+                      label="썬팅"
+                      name="tinting"
+                      labelPlacement="end"
+                      value="Y"
+                      onChange={handleCheckBoxChange}
+                      checked={values.tinting === 'Y' ? true : false }
+                      control={<Checkbox size="small" />}
+                    />
                 </FormGroup>
               </FormControl>
             </Grid>
-            <Grid item xs={10} md={6}>
+            <Grid item xs={9} md={6}>
             <TextField
               label="출고 날짜&시간"
               type="datetime-local"
               name="release_date"
               onChange={handleInputChange}
               value={values.release_date || ''}
-              sx={{ width: 270 }}
+              sx={{ minWidth: 200, maxWidth: 240}}
               InputLabelProps={{
                 shrink: true,
               }}
             />
             </Grid>
-            <Grid item xs={2} md={2}>
-              <FormHelperText style={{paddingTop:'3px', fontSize: '0.75rem', color: '#1976d2'}}>출고서류</FormHelperText>
-              <FormControl
-                onChange={handleCheckBoxChange}
-                >
-                <Checkbox
-                  size=""
-                  value="Y"
-                  name="release_doc"
-                  checked={values.release_doc === 'Y' ? true : false}
-                  style={{marginLeft: '8px', verticalAlign: 'middle'}}
-                />
+            <Grid item xs={3} md={2}>
+              <FormControl component="fieldset">
+              <FormLabel component="legend" style={{fontSize: '0.7rem', color: '#1976d2'}}>출고서류</FormLabel>
+                <FormGroup aria-label="position" row>
+                  <FormControlLabel
+                    label={<FileCopyOutlinedIcon />}
+                    value="Y"
+                    name="release_doc"
+                    labelPlacement="end"
+                    onChange={handleCheckBoxChange}
+                    checked={values.release_doc === 'Y' ? true : false }
+                    control={<Checkbox size="small" />}
+                  />
+                </FormGroup>
               </FormControl>
             </Grid>
-            <Grid item xs md={4}></Grid>
-            <Grid item xs={5} md={5}>
+          </Grid>
+          <Grid container item spacing={3}>
+            <Grid item xs={12} md={5}>
               <TextField
                 label="결제방식"
                 margin="dense"
@@ -383,7 +380,7 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, deleteImg, handleClo
                 value={values.payment_type || ''}
               />
             </Grid>
-            <Grid item xs={5} md={5}>
+            <Grid item xs={9} md={5}>
               <TextField
                 label="결제금액"
                 margin="dense"
@@ -397,8 +394,8 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, deleteImg, handleClo
                 }}
               />
             </Grid>
-            <Grid item xs={2} md={2}>
-              <FormHelperText style={{paddingTop:'3px', fontSize: '0.75rem', color: '#1976d2'}}>기재완료</FormHelperText>
+            <Grid item xs={3} md={2}>
+              <FormHelperText style={{paddingTop:'3px', fontSize: '0.7rem', color: '#1976d2'}}>기재완료</FormHelperText>
               <FormControl
                   onChange={handleCheckBoxChange}
                 >
@@ -413,6 +410,7 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, deleteImg, handleClo
             </Grid>
           </Grid>
           <Grid item xs={12} md={12}>
+          <FormHelperText style={{paddingTop:'3px', fontSize: '0.8rem', color: '#1976d2'}}>출고봉투</FormHelperText>
             {releaseImg ?
             <ImageListItem>
               <img

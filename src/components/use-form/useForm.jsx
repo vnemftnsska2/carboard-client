@@ -1,4 +1,5 @@
 import { useState, } from 'react';
+import dayjs from "dayjs";
 
 const useForm = (initialFormValues) => {
   const [values, setValues] = useState(initialFormValues);
@@ -47,6 +48,14 @@ const useForm = (initialFormValues) => {
     });
   };
 
+  const handleDatePicker = value => {
+    const date = value ? dayjs(value).format('YYYY-MM-DD') : '';
+    setValues({
+      ...values,
+      delivery_date: date,
+    });
+  };
+
   return {
     values,
     setValues,
@@ -55,6 +64,7 @@ const useForm = (initialFormValues) => {
     handleCheckBoxChange,
     handleCurrencyChange,
     handleFileUpload,
+    handleDatePicker,
   }
 }
 
