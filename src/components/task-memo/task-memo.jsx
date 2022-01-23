@@ -142,7 +142,7 @@ const TaskMemo = ({ task, openUpdateModal, openImgViewer }) => {
           <b>‣ 결제금액</b>: {task.payment_amount.toLocaleString('kr-KO')} <b>‣ 결제방식</b>: {task.payment_type}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          <b>‣ 결재봉투</b>: {task.release_img ?
+          <b>‣ 출고봉투</b>: {task.release_img ?
             <span
               onClick={() => { openImgViewer(task.release_img)}}
             >
