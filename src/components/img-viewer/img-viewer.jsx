@@ -6,7 +6,7 @@ const ImgViewer = ({open, fileName, handleClose}) => {
     <Dialog open={open} onClose={handleClose} maxWidth="lg">
       <DialogContent>
         <img
-          src={`http://localhost:3030/image/${fileName}`}
+          src={`${process.env.REACT_APP_API_SERVER || 'http://localhost:3030'}/image/${fileName}`}
           alt={fileName}
         />
       </DialogContent>

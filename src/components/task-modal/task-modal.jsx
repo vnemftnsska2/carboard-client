@@ -396,7 +396,7 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, deleteImg, handleClo
             {releaseImg ?
             <ImageListItem>
               <img
-                src={`http://localhost:3030/image/${releaseImg}`}
+                src={`${process.env.REACT_APP_API_SERVER || 'http://localhost:3030'}/image/${releaseImg}`}
                 alt={releaseImg}
                 width={200}
                 height={100}
