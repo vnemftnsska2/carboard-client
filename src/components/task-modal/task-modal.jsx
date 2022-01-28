@@ -52,7 +52,6 @@ const initFormValues = {
   glass_film: 'N',
   tinting: 'N',
   release_date: '',
-  release_doc: 'N',
   payment_type: '',
   payment_amount: 0,
   payment_completed: 'N',
@@ -349,22 +348,6 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, deleteImg, handleClo
                 shrink: true,
               }}
             />
-            </Grid>
-            <Grid item xs={3} md={2}>
-              <FormControl component="fieldset">
-              <FormLabel component="legend" style={{fontSize: '0.7rem', color: '#1976d2'}}>출고서류</FormLabel>
-                <FormGroup aria-label="position" row>
-                  <FormControlLabel
-                    label={<FileCopyOutlinedIcon />}
-                    value="Y"
-                    name="release_doc"
-                    labelPlacement="end"
-                    onChange={handleCheckBoxChange}
-                    checked={values.release_doc === 'Y' ? true : false }
-                    control={<Checkbox size="small" />}
-                  />
-                </FormGroup>
-              </FormControl>
             </Grid>
           </Grid>
           <Grid container item spacing={3}>

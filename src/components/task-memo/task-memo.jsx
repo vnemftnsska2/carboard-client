@@ -62,9 +62,9 @@ const TaskMemo = ({ task, openUpdateModal, openImgViewer }) => {
   }
 
   const setEllipsis = (fileName) => {
-    let styleFileName = fileName;
-    if (fileName.length > 30) {
-      styleFileName = fileName.substring(0, 30) + '...';
+    let styleFileName = fileName.substr(0, fileName.lastIndexOf('_'));
+    if (styleFileName.length > 30) {
+      styleFileName = styleFileName.substring(0, 30) + '...';
     }
     return <font color={blue[700]}><b>{styleFileName}</b></font>;
   }
@@ -124,7 +124,7 @@ const TaskMemo = ({ task, openUpdateModal, openImgViewer }) => {
           <b>‣ PPF</b>: {task.ppf}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          <b>‣기타</b>: {task.etc}
+          <b>‣ 기타</b>: {task.etc}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           <b>‣ 코일매트</b>: {task.coil_matt === 'E' ? '없음' : task.coil_matt === 'D' ? '딜러' : '카보드'}
@@ -133,16 +133,13 @@ const TaskMemo = ({ task, openUpdateModal, openImgViewer }) => {
           <b>‣ 보증서발행</b>: 유리막 [{checkOrClear(task.glass_film)}] 썬팅 [{checkOrClear(task.tinting)}]
         </Typography>
         <Typography variant="body2" color="text.secondary">
-        <b>‣ 출고서류</b>: 복사 [{checkOrClear(task.release_doc)}]
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
           <b>‣ 출고날짜</b>: {getDate(task.release_date)} 
         </Typography>
         <Typography variant="body2" color="text.secondary">
           <b>‣ 결제금액</b>: {task.payment_amount.toLocaleString('kr-KO')} <b>‣ 결제방식</b>: {task.payment_type}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          <b>‣ 출고봉투</b>: {task.release_img ?
+          <b>‣ 출고서류</b>: {task.release_img ?
             <span
               onClick={() => { openImgViewer(task.release_img)}}
             >
