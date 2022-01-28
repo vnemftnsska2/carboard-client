@@ -393,7 +393,7 @@ const TaskModal = ({ open, addTask, updateTask, deleteTask, deleteImg, handleClo
             </Grid>
           </Grid>
           <Grid item xs={12} md={12}>
-          <FormHelperText style={{paddingTop:'3px', fontSize: '0.8rem', color: '#1976d2'}}>출고봉투</FormHelperText>
+          <FormHelperText style={{paddingTop:'3px', fontSize: '0.8rem', color: '#1976d2'}}>출고서류</FormHelperText>
             {releaseImg ?
             <ImageListItem>
               <img
