@@ -1,25 +1,19 @@
-import React, { useState, } from 'react';
+import React, { useRef, } from 'react';
 import {
-  Avatar,
   Button,
   CssBaseline,
   TextField,
-  FormControlLabel,
-  Checkbox,
-  Grid,
   Box,
-  Typography,
   Container,
 } from '@mui/material';
 import Logo from '../../static/images/b-logo.png';
 import { useNavigate, } from 'react-router-dom';
 
-const Login = (props) => {
-  const [userId, setUserId] = useState('');
-  const [password, setPassword] = useState('');
+const Login = ({ authRepository }) => {
   const navigate = useNavigate();
+  const passwordRef = useRef();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const loginInfo = {
@@ -27,10 +21,14 @@ const Login = (props) => {
       password: data.get('password'),
     };
 
-    if (loginInfo.user_id === 'admin') {
+    const authRet = await authRepository.login(loginInfo);
+    console.log(authRet)
+    if (authRet.status === 200) {
       return navigate('/task');
+    } else if (authRet.status === 401) {
+      alert('로그인 정보를 확인해주세요 😡');
+      passwordRef.current.value = '';
     }
-    return alert('로그인 정보를 확인해주세요 😡');
   };
 
   return (
@@ -59,6 +57,7 @@ const Login = (props) => {
             margin="normal"
             required
             fullWidth
+            inputRef={passwordRef}
             name="password"
             label="패스워드"
             type="password"

@@ -14,13 +14,13 @@ import Employee from "./pages/employee/employee";
 import Customer from "./pages/customer/customer";
 import Setting from "./pages/setting/setting";
 
-const App = ({ taskRepository }) => {
+const App = ({ taskRepository, authRepository }) => {
   const user = true;
   const [userKey, setUserKey] = useState("");
 
   return (
     <Routes>
-      <Route path="/" element={<Login />} exact />
+      <Route path="/" element={<Login authRepository={authRepository} />} exact />
       <Route element={<Home />}>
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="notice" element={<Notice />} />
