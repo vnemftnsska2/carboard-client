@@ -8,6 +8,7 @@ import {
 } from '@mui/material';
 import Logo from '../../static/images/b-logo.png';
 import { useNavigate, } from 'react-router-dom';
+import crypto from 'crypto-js';
 
 const Login = ({ authRepository }) => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const Login = ({ authRepository }) => {
     const data = new FormData(event.currentTarget);
     const loginInfo = {
       user_id: data.get('user_id'),
-      password: data.get('password'),
+      password: crypto.AES.encrypt(data.get('password'), process.env.REACT_APP_CRYPT_KEY).toString(),
     };
 
     const authRet = await authRepository.login(loginInfo);
