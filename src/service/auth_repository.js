@@ -6,7 +6,6 @@ class AuthRepository {
   }
 
   login(loginInfo) {
-    console.log(loginInfo);
     const ret = axios.post(`${this.SERVER}/api/login`, loginInfo)
     .then(res => res.data)
     .catch(err => {

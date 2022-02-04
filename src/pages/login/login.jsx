@@ -23,7 +23,6 @@ const Login = ({ authRepository }) => {
     };
 
     const authRet = await authRepository.login(loginInfo);
-    console.log(authRet)
     if (authRet.status === 200) {
       return navigate('/task');
     } else if (authRet.status === 401) {
