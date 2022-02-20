@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
   Grid,
-  Box,
+  DialogActions,
+  Button,
   Table,
   TableBody,
   TableCell,
@@ -23,24 +27,22 @@ const rows = [
   createData("여의도", 356, 16.0, 49, 3.9),
 ];
 
-const Business = ({}) => {
+const CompanyModal = ({}) => {
+  const companyRef = useRef();
   return (
-    <Box>
-      <Paper sx={{ marginTop: "10px", padding: "1em 3em 1em 1.5em" }}>
-        <Grid container spacing={2}></Grid>
-      </Paper>
-      <Paper sx={{ marginTop: "1em", padding: "1em", minHeight: "80vh" }}>
-        <Grid container spacing={2}>
+    <Dialog open={false}>
+      <DialogTitle>업체명</DialogTitle>
+      <DialogContent>
+        <Grid container spacing={2} sx={{ paddingTop: "0.5em" }}>
           <Grid item xs={12} md={12}>
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 400 }} aria-label="simple table">
                 <TableHead>
                   <TableRow>
                     <TableCell>지점</TableCell>
-                    <TableCell>업체명</TableCell>
-                    <TableCell>대표자</TableCell>
-                    <TableCell>연락처</TableCell>
-                    <TableCell>주소</TableCell>
+                    <TableCell align="right">업체명</TableCell>
+                    <TableCell align="right">Carbs&nbsp;(g)</TableCell>
+                    <TableCell align="right">Protein&nbsp;(g)</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -54,10 +56,9 @@ const Business = ({}) => {
                       <TableCell component="th" scope="row">
                         {row.name}
                       </TableCell>
-                      <TableCell>{row.calories}</TableCell>
-                      <TableCell>{row.fat}</TableCell>
-                      <TableCell>{row.carbs}</TableCell>
-                      <TableCell>{row.carbs}</TableCell>
+                      <TableCell align="right">{row.calories}</TableCell>
+                      <TableCell align="right">{row.fat}</TableCell>
+                      <TableCell align="right">{row.carbs}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -65,11 +66,14 @@ const Business = ({}) => {
             </TableContainer>
           </Grid>
         </Grid>
-
-        {/* Modal */}
-      </Paper>
-    </Box>
+        <form ref={companyRef}></form>
+      </DialogContent>
+      <DialogActions>
+        <Button>취소</Button>
+        <Button>저장</Button>
+      </DialogActions>
+    </Dialog>
   );
 };
 
-export default Business;
+export default CompanyModal;

@@ -11,6 +11,7 @@ import {
   Paper,
   TextField,
 } from "@mui/material";
+import CompanyModal from "../../components/company-modal/company-modal";
 
 const Inventory = () => {
   return (
@@ -62,6 +63,9 @@ const Inventory = () => {
       </Paper>
       <Paper sx={{ marginTop: "1em", padding: "1em", minHeight: "80vh" }}>
         <Grid container spacing={2}></Grid>
+
+        {/* Modal */}
+        <CompanyModal />
       </Paper>
     </Box>
   );

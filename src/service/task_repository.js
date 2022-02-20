@@ -23,6 +23,7 @@ class TaskRepository {
       },
     }).catch((err) => {
       console.log(err);
+      return JSON.parse({ status: 400 });
     });
     return result.json();
   }
@@ -32,8 +33,8 @@ class TaskRepository {
       method: "POST",
       body: task,
     }).catch((err) => {
-      console.log(err)
-      return JSON.parse({status: 400});
+      console.log(err);
+      return JSON.parse({ status: 400 });
     });
     return result.json();
   }
@@ -43,8 +44,8 @@ class TaskRepository {
       method: "POST",
       body: task,
     }).catch((err) => {
-      console.log(err)
-      return JSON.parse({status: 400});
+      console.log(err);
+      return JSON.parse({ status: 400 });
     });
     return result.json();
   }
@@ -57,8 +58,8 @@ class TaskRepository {
       },
       body: JSON.stringify(task),
     }).catch((err) => {
-      console.log(err)
-      return JSON.parse({status: 400});
+      console.log(err);
+      return JSON.parse({ status: 400 });
     });
     return result.json();
   }
@@ -69,10 +70,10 @@ class TaskRepository {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({idx}),
+      body: JSON.stringify({ idx }),
     }).catch((err) => {
-      console.log(err)
-      return JSON.parse({status: 400});
+      console.log(err);
+      return JSON.parse({ status: 400 });
     });
     return result.json();
   }
