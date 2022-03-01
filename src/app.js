@@ -13,6 +13,7 @@ import Business from "./pages/business/business";
 import Employee from "./pages/employee/employee";
 import Customer from "./pages/customer/customer";
 import Setting from "./pages/setting/setting";
+import TestPage from "./pages/test_page/test_page";
 
 const App = ({ taskRepository, authRepository }) => {
   const user = true;
@@ -20,7 +21,11 @@ const App = ({ taskRepository, authRepository }) => {
 
   return (
     <Routes>
-      <Route path="/" element={<Login authRepository={authRepository} />} exact />
+      <Route
+        path="/"
+        element={<Login authRepository={authRepository} />}
+        exact
+      />
       <Route element={<Home />}>
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="notice" element={<Notice />} />
@@ -30,6 +35,7 @@ const App = ({ taskRepository, authRepository }) => {
         <Route path="employee" element={<Employee />} />
         <Route path="customer" element={<Customer />} />
         <Route path="setting" element={<Setting />} />
+        <Route path="test" element={<TestPage />} />
       </Route>
     </Routes>
   );

@@ -1,41 +1,44 @@
-import React from "react";
-import {
-  Box,
-  Button,
-  Grid,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Stack,
-  Paper,
-  TextField,
-} from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Box, Button, Grid, Stack, Paper, TextField } from "@mui/material";
 import CompanyModal from "../../components/company-modal/company-modal";
+import DateRangePicker from "@mui/lab/DateRangePicker";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import dayjs from "dayjs";
 
-const Inventory = () => {
+const Inventory = (props) => {
+  const [value, setValue] = useState([null, null]);
+  const setInitRangeDate = () => {
+    const today = dayjs().format("YYYY-MM-DD");
+    return [today, today];
+  };
+
+  useEffect(() => {}, []);
+
   return (
     <Box>
       <Paper sx={{ marginTop: "10px", padding: "1em 3em 1em 1.5em" }}>
         <Grid container spacing={2}>
-          <Grid item xs={12} md={3} lg={1}>
-            <FormControl variant="standard" sx={{ minWidth: 120 }}>
-              <InputLabel id="task-status-select-label">작업상태</InputLabel>
-              <Select
-                labelId="task-status-select-label"
-                id="task-status-select"
-                name="status_search"
-                label="작업상태"
-                defaultValue=""
-              >
-                <MenuItem value={0}>전체</MenuItem>
-                <MenuItem value={1}>입고예정</MenuItem>
-                <MenuItem value={2}>작업전</MenuItem>
-                <MenuItem value={3}>금일작업</MenuItem>
-                <MenuItem value={4}>작업완료</MenuItem>
-                <MenuItem value={5}>기재완료</MenuItem>
-              </Select>
-            </FormControl>
+          <Grid item xs={12} md={3} lg={3}>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DateRangePicker
+                startText="시작일"
+                endText="종료일"
+                inputFormat={"yyyy-MM-dd"}
+                mask={"____-__-__"}
+                value={value}
+                onChange={(newValue) => {
+                  setValue(newValue);
+                }}
+                renderInput={(startProps, endProps) => (
+                  <React.Fragment>
+                    <TextField {...startProps} />
+                    <Box sx={{ mx: 1 }}> - </Box>
+                    <TextField {...endProps} />
+                  </React.Fragment>
+                )}
+              />
+            </LocalizationProvider>
           </Grid>
           <Grid item xs={6} md={3} lg={3}>
             <Stack direction="row" alignItems="flex-end">
@@ -50,7 +53,7 @@ const Inventory = () => {
               </Button>
             </Stack>
           </Grid>
-          <Grid item xs={6} md={6} lg={8} sx={{ textAlign: "right" }}>
+          <Grid item xs={6} md={6} lg={6} sx={{ textAlign: "right" }}>
             <Button
               variant="contained"
               sx={{ minWidth: "7em", marginTop: "12px" }}
