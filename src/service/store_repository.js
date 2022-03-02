@@ -1,10 +1,10 @@
-class PartnersRepository {
+class StoreRepository {
   constructor(API_SERVER) {
     this.SERVER = API_SERVER;
   }
 
-  async asyncPartnerList() {
-    const result = await fetch(`${this.SERVER}/api/partners`, {
+  async asyncStoreList() {
+    const result = await fetch(`${this.SERVER}/api/stores`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -16,10 +16,10 @@ class PartnersRepository {
     return result.json();
   }
 
-  async ayncAddPartner(partner) {
-    const result = await fetch(`${this.SERVER}/api/partners`, {
+  async ayncAddStore(store) {
+    const result = await fetch(`${this.SERVER}/api/stores`, {
       method: "POST",
-      body: partner,
+      body: store,
     }).catch((err) => {
       console.log(err);
       return JSON.parse({ status: 400 });
@@ -27,10 +27,10 @@ class PartnersRepository {
     return result.json();
   }
 
-  async ayncUpdatePartner(partner) {
-    const result = await fetch(`${this.SERVER}/api/partners/${partner.idx}`, {
+  async ayncUpdateStores(store) {
+    const result = await fetch(`${this.SERVER}/api/stores/${store.idx}`, {
       method: "POST",
-      body: partner,
+      body: store,
     }).catch((err) => {
       console.log(err);
       return JSON.parse({ status: 400 });
@@ -38,13 +38,13 @@ class PartnersRepository {
     return result.json();
   }
 
-  async ayncDeletePartner(partner) {
-    const result = await fetch(`${this.SERVER}/api/partners/${partner.idx}`, {
+  async ayncDeleteStore(store) {
+    const result = await fetch(`${this.SERVER}/api/stores/${store.idx}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(partner),
+      body: JSON.stringify(store),
     }).catch((err) => {
       console.log(err);
       return JSON.parse({ status: 400 });
@@ -53,4 +53,4 @@ class PartnersRepository {
   }
 }
 
-export default PartnersRepository;
+export default StoreRepository;

@@ -122,7 +122,6 @@ const Task = ({ taskRepository }) => {
   const closeTaskModal = () => setOpen(false);
 
   const openImgViewer = (fileName) => {
-    console.log(fileName);
     setImgFileName(fileName || "");
     setImgOpen(true);
   };

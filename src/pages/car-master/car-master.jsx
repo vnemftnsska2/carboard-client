@@ -9,6 +9,9 @@ import {
   TableHead,
   TableRow,
   Paper,
+  Stack,
+  TextField,
+  Button,
 } from "@mui/material";
 
 function createData(name, calories, fat, carbs) {
@@ -23,11 +26,37 @@ const rows = [
   createData("여의도", 356, 16.0, 49, 3.9),
 ];
 
-const Business = ({}) => {
+const CarMaster = ({}) => {
   return (
     <Box>
       <Paper sx={{ marginTop: "10px", padding: "1em 3em 1em 1.5em" }}>
-        <Grid container spacing={2}></Grid>
+        <Grid container spacing={2}>
+          <Grid item xs={6} md={6} lg={4}>
+            <Stack direction="row" alignItems="flex-end">
+              <TextField
+                label="검색"
+                type="search"
+                variant="standard"
+                sx={{ minWidth: 150 }}
+                inputRef={null}
+                onKeyDown={() => {}}
+              />
+              <Button size="small" variant="outlined" onClick={() => {}}>
+                검색
+              </Button>
+            </Stack>
+          </Grid>
+          <Grid item xs={6} md={6} lg={8} sx={{ textAlign: "right" }}>
+            <Button
+              ref={null}
+              variant="contained"
+              sx={{ minWidth: "7em", marginTop: "12px" }}
+              onClick={() => {}}
+            >
+              업체 등록
+            </Button>
+          </Grid>
+        </Grid>
       </Paper>
       <Paper sx={{ marginTop: "1em", padding: "1em", minHeight: "80vh" }}>
         <Grid container spacing={2}>
@@ -72,4 +101,4 @@ const Business = ({}) => {
   );
 };
 
-export default Business;
+export default CarMaster;
