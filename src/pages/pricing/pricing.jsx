@@ -5,33 +5,7 @@ import React, { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import BrandModal from "../../components/brand-modal/brand-modal";
 
-const productRows = [
-  {
-    id: 0,
-    brand: "레이노",
-    description: "필름 취급",
-  },
-  {
-    id: 1,
-    brand: "블랙박스브랜드",
-    description: "블랙박스만 취급",
-  },
-  {
-    id: 2,
-    brand: "브이클",
-    description: "설명",
-  },
-  {
-    id: 3,
-    brand: "버텍스",
-    description: "설명",
-  },
-  {
-    id: 4,
-    brand: "파인뷰",
-    description: "설명",
-  },
-];
+const brandRows = [];
 
 const unitRows = [
   {
@@ -113,7 +87,7 @@ const Pricing = ({ priceRepository }) => {
             </Stack>
             <DataGrid
               columns={brandColumns}
-              rows={productRows}
+              rows={brandRows}
               sx={{ height: "80vh" }}
             />
           </Paper>
