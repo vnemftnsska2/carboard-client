@@ -17,7 +17,12 @@ import Customer from "./pages/customer/customer";
 import Setting from "./pages/setting/setting";
 import TestPage from "./pages/test_page/test_page";
 
-const App = ({ taskRepository, authRepository, inventoryRepository }) => {
+const App = ({
+  taskRepository,
+  authRepository,
+  inventoryRepository,
+  priceRepository,
+}) => {
   const user = true;
   const [userKey, setUserKey] = useState("");
 
@@ -37,7 +42,10 @@ const App = ({ taskRepository, authRepository, inventoryRepository }) => {
           element={<Inventory inventoryRepository={inventoryRepository} />}
         />
         <Route path="store" element={<Store />} />
-        <Route path="pricing" element={<Pricing />} />
+        <Route
+          path="pricing"
+          element={<Pricing priceRepository={priceRepository} />}
+        />
         <Route path="carMaster" element={<CarMaster />} />
         <Route path="employee" element={<Employee />} />
         <Route path="customer" element={<Customer />} />

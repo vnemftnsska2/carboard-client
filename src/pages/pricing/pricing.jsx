@@ -1,8 +1,9 @@
 import { Box, Paper, Grid, Button, Stack } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 
 //DataGrid
 import { DataGrid } from "@mui/x-data-grid";
+import BrandModal from "../../components/brand-modal/brand-modal";
 
 const productRows = [
   {
@@ -36,37 +37,56 @@ const unitRows = [
   {
     id: 0,
     product: "S5-5%",
+    unit: "M",
+    unit_min: 0.5,
+    unit_max: 29,
     price: "100000",
     description: "설명",
   },
   {
     id: 1,
     product: "S5-15%",
+    unit: "M",
+    unit_min: 0.5,
+    unit_max: 29,
     price: "100000",
     description: "설명",
   },
   {
     id: 2,
     product: "S7-35%",
+    unit: "M",
+    unit_min: 0.5,
+    unit_max: 29,
     price: "100000",
     description: "설명",
   },
 ];
 
-const Pricing = (props) => {
+const Pricing = ({ priceRepository }) => {
+  const [brandOpen, setBrandOpen] = useState(false);
   //Table
-  const productColumns = [
-    { field: "brand", headerName: "브랜드", width: "20%" },
-    { field: "description", headerName: "설명", width: "65%" },
-    { field: "", headerName: "", width: "15%" },
+  const brandColumns = [
+    { field: "brand", headerName: "브랜드", width: 150 },
+    { field: "description", headerName: "설명" },
+    { field: "", headerName: "", width: 100 },
   ];
 
-  const unitColumns = [
+  const productColumns = [
     { field: "product", headerName: "상품", width: 150 },
-    { field: "price", headerName: "가격", width: 200 },
-    { field: "description", headerName: "설명", width: 400 },
+    { field: "unit", headerName: "단위", width: 80 },
+    { field: "unit_min", headerName: "최소단위", width: 100 },
+    { field: "unit_max", headerName: "최대단위", width: 100 },
+    { field: "price", headerName: "가격", width: 150 },
+    { field: "description", headerName: "설명", width: 300 },
     { field: "", headerName: "", width: 120 },
   ];
+
+  const openBrandModal = () => setBrandOpen(true);
+  const closeBrandModal = () => setBrandOpen(false);
+  const addBrand = () => {};
+  const updateBrand = () => {};
+  const deleteBrand = () => {};
 
   return (
     <Box>
@@ -86,13 +106,13 @@ const Pricing = (props) => {
               <Button
                 variant="contained"
                 sx={{ width: "5em", textAlign: "right" }}
-                onClick={() => {}}
+                onClick={openBrandModal}
               >
                 등록
               </Button>
             </Stack>
             <DataGrid
-              columns={productColumns}
+              columns={brandColumns}
               rows={productRows}
               sx={{ height: "80vh" }}
             />
@@ -119,13 +139,20 @@ const Pricing = (props) => {
               </Button>
             </Stack>
             <DataGrid
-              columns={unitColumns}
+              columns={productColumns}
               rows={unitRows}
               sx={{ height: "80vh" }}
             />
           </Paper>
         </Grid>
       </Grid>
+      <BrandModal
+        open={brandOpen}
+        addBrand={addBrand}
+        updateInventory={updateBrand}
+        deleteInventory={deleteBrand}
+        handleClose={closeBrandModal}
+      />
     </Box>
   );
 };
