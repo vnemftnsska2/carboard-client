@@ -1,3 +1,5 @@
+import axios from "axios";
+
 class PriceReposiroty {
   constructor(API_SERVER) {
     this.SERVER = API_SERVER;
@@ -13,19 +15,18 @@ class PriceReposiroty {
       console.log(err);
       return [];
     });
-
     return result.json();
   }
 
   async ayncAddBrand(brand) {
-    const result = await fetch(`${this.SERVER}/api/brand`, {
-      method: "POST",
-      body: brand,
-    }).catch((err) => {
-      console.log(err);
-      return JSON.parse({ status: 400 });
-    });
-    return result.json();
+    const ret = axios
+      .post(`${this.SERVER}/api/brand`, brand)
+      .then((res) => res.data)
+      .catch((err) => {
+        const status = JSON.parse(JSON.stringify(err)).status;
+        return { status };
+      });
+    return ret;
   }
 }
 

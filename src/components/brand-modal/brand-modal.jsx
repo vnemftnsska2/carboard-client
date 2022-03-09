@@ -12,9 +12,8 @@ import useForm from "../use-form/useForm";
 import FiberNewOutlinedIcon from "@mui/icons-material/FiberNewOutlined";
 
 const initFormValues = {
-  id: 0,
   name: "",
-  discription: "필름 취급 회사",
+  description: "",
 };
 
 const BrandModal = ({

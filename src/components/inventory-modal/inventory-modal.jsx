@@ -146,18 +146,19 @@ const InventoryModal = ({
                 variant="standard"
                 sx={{ m: 1, minWidth: 120 }}
               >
-                <InputLabel id="task-status-select-label">제품명</InputLabel>
+                <InputLabel id="task-status-select-label">브랜드</InputLabel>
                 <Select
                   labelId="task-status-select-label"
                   id="task-status-select"
                   name="item"
-                  label="제품명"
+                  label="브랜드"
                   defaultValue=""
                   value={values.item}
                   onChange={handleInputChange}
                 >
-                  <MenuItem value={1}>고강카보드</MenuItem>
-                  <MenuItem value={2}>김포카보드</MenuItem>
+                  <MenuItem value={1}>레이노</MenuItem>
+                  <MenuItem value={2}>레인보우</MenuItem>
+                  <MenuItem value={3}>보텍스</MenuItem>
                 </Select>
               </FormControl>
             </Grid>

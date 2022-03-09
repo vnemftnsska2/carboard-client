@@ -1,11 +1,11 @@
 import { Box, Paper, Grid, Button, Stack } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 
 //DataGrid
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import BrandModal from "../../components/brand-modal/brand-modal";
-
-const brandRows = [];
 
 const unitRows = [
   {
@@ -38,12 +38,48 @@ const unitRows = [
 ];
 
 const Pricing = ({ priceRepository }) => {
+  //Brand
+  const [brandList, setBrandList] = useState([]);
+  const [selectedBrand, setSelectedBrand] = useState(null);
   const [brandOpen, setBrandOpen] = useState(false);
+  //Product
+  const [productList, setProductList] = useState([]);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const getBrandList = async () => {
+    const data = await priceRepository.asyncBrandList();
+    if (!data?.fatal) {
+      setBrandList(data);
+
+      console.log(data, selectedBrand);
+      //최초실행
+      if (!selectedBrand && data.length > 0) {
+        console.log("dddd", data[0]);
+        selectBrand(data[0].idx);
+      }
+    }
+  };
+
+  const selectBrand = (idx) => {
+    const brand = brandList.find((brand) => brand.idx === idx);
+    if (brand) {
+      setSelectedBrand(brand.name);
+    }
+  };
+
   //Table
   const brandColumns = [
-    { field: "brand", headerName: "브랜드", width: 150 },
-    { field: "description", headerName: "설명" },
-    { field: "", headerName: "", width: 100 },
+    { field: "name", headerName: "브랜드", minWidth: 150, flex: 1 },
+    { field: "description", headerName: "설명", minWidth: 200, flex: 1 },
+    {
+      field: "actions",
+      type: "actions",
+      width: 100,
+      getActions: () => [
+        <GridActionsCellItem icon={<EditIcon />} label="Edit" />,
+        <GridActionsCellItem icon={<DeleteIcon />} label="Delete" />,
+      ],
+    },
   ];
 
   const productColumns = [
@@ -56,9 +92,27 @@ const Pricing = ({ priceRepository }) => {
     { field: "", headerName: "", width: 120 },
   ];
 
+  //Init
+  useEffect(() => {
+    getBrandList();
+  }, [priceRepository]);
+
   const openBrandModal = () => setBrandOpen(true);
   const closeBrandModal = () => setBrandOpen(false);
-  const addBrand = () => {};
+  const addBrand = async (brand) => {
+    if (brand.name) {
+      const result = await priceRepository.ayncAddBrand(brand);
+      if (result.status === 200) {
+        alert("브랜드가 추가되었습니다 🏢 💫");
+        closeBrandModal();
+        getBrandList();
+      } else {
+        alert("진행중 에러가 발생하였습니다 😡");
+      }
+    } else {
+      return alert("브랜드명을 입력해주세요 😡");
+    }
+  };
   const updateBrand = () => {};
   const deleteBrand = () => {};
 
@@ -87,7 +141,11 @@ const Pricing = ({ priceRepository }) => {
             </Stack>
             <DataGrid
               columns={brandColumns}
-              rows={brandRows}
+              rows={brandList}
+              getRowId={(r) => r.idx}
+              isRowSelectable={(r) => {
+                selectBrand(r.id);
+              }}
               sx={{ height: "80vh" }}
             />
           </Paper>
@@ -102,7 +160,7 @@ const Pricing = ({ priceRepository }) => {
               sx={{ padding: "0 0.3em 0 0.3em" }}
             >
               <font size="5">
-                <strong>레이노</strong>
+                <strong>{selectedBrand}</strong>
               </font>
               <Button
                 variant="contained"
