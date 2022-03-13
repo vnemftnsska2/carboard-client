@@ -6,6 +6,7 @@ import EditIcon from "@mui/icons-material/Edit";
 //DataGrid
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import BrandModal from "../../components/brand-modal/brand-modal";
+import ProductModal from "../../components/product-modal/product-modal";
 
 const unitRows = [
   {
@@ -44,6 +45,7 @@ const Pricing = ({ priceRepository }) => {
   const [brandOpen, setBrandOpen] = useState(false);
   //Product
   const [productList, setProductList] = useState([]);
+  const [productOpen, setProductOpen] = useState(false);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getBrandList = async () => {
@@ -51,11 +53,22 @@ const Pricing = ({ priceRepository }) => {
     if (!data?.fatal) {
       setBrandList(data);
 
-      console.log(data, selectedBrand);
       //최초실행
       if (!selectedBrand && data.length > 0) {
-        console.log("dddd", data[0]);
-        selectBrand(data[0].idx);
+        setSelectedBrand(data[0].name);
+      }
+    }
+  };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const getProductList = async () => {
+    const data = await priceRepository.asyncBrandList();
+    if (!data?.fatal) {
+      setBrandList(data);
+
+      //최초실행
+      if (!selectedBrand && data.length > 0) {
+        setSelectedBrand(data[0].name);
       }
     }
   };
@@ -115,6 +128,25 @@ const Pricing = ({ priceRepository }) => {
   };
   const updateBrand = () => {};
   const deleteBrand = () => {};
+
+  const openProductModal = () => setBrandOpen(true);
+  const closeProductModal = () => setBrandOpen(false);
+  const addProduct = async (brand) => {
+    if (brand.name) {
+      const result = await priceRepository.ayncAddProduct(brand);
+      if (result.status === 200) {
+        alert("브랜드가 추가되었습니다 🏢 💫");
+        closeProductModal();
+        getProductList();
+      } else {
+        alert("진행중 에러가 발생하였습니다 😡");
+      }
+    } else {
+      return alert("브랜드명을 입력해주세요 😡");
+    }
+  };
+  const updateProduct = () => {};
+  const deleteProduct = () => {};
 
   return (
     <Box>
@@ -179,6 +211,13 @@ const Pricing = ({ priceRepository }) => {
         </Grid>
       </Grid>
       <BrandModal
+        open={productOpen}
+        addBrand={addBrand}
+        updateInventory={updateBrand}
+        deleteInventory={deleteBrand}
+        handleClose={closeBrandModal}
+      />
+      <ProductModal
         open={brandOpen}
         addBrand={addBrand}
         updateInventory={updateBrand}
