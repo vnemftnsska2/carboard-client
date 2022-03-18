@@ -24,7 +24,6 @@ const BrandModal = ({
   handleClose,
 }) => {
   const brandFormRef = useRef();
-
   const { values, setValues, handleInputChange } = useForm(initFormValues);
 
   useEffect(() => {

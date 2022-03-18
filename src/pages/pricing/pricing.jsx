@@ -110,6 +110,7 @@ const Pricing = ({ priceRepository }) => {
     getBrandList();
   }, [priceRepository]);
 
+  //Brand Func
   const openBrandModal = () => setBrandOpen(true);
   const closeBrandModal = () => setBrandOpen(false);
   const addBrand = async (brand) => {
@@ -129,8 +130,9 @@ const Pricing = ({ priceRepository }) => {
   const updateBrand = () => {};
   const deleteBrand = () => {};
 
-  const openProductModal = () => setBrandOpen(true);
-  const closeProductModal = () => setBrandOpen(false);
+  // Prodct Func
+  const openProductModal = () => setProductOpen(true);
+  const closeProductModal = () => setProductOpen(false);
   const addProduct = async (brand) => {
     if (brand.name) {
       const result = await priceRepository.ayncAddProduct(brand);
@@ -197,7 +199,7 @@ const Pricing = ({ priceRepository }) => {
               <Button
                 variant="contained"
                 sx={{ width: "5em", textAlign: "right" }}
-                onClick={() => {}}
+                onClick={openProductModal}
               >
                 추가
               </Button>
@@ -210,19 +212,21 @@ const Pricing = ({ priceRepository }) => {
           </Paper>
         </Grid>
       </Grid>
+
+      {/* Modal */}
       <BrandModal
-        open={productOpen}
+        open={brandOpen}
         addBrand={addBrand}
-        updateInventory={updateBrand}
-        deleteInventory={deleteBrand}
+        updateBrand={updateBrand}
+        deleteBrand={deleteBrand}
         handleClose={closeBrandModal}
       />
       <ProductModal
-        open={brandOpen}
-        addBrand={addBrand}
-        updateInventory={updateBrand}
-        deleteInventory={deleteBrand}
-        handleClose={closeBrandModal}
+        open={productOpen}
+        addProduct={addProduct}
+        updateProduct={updateProduct}
+        deleteProduct={deleteProduct}
+        handleClose={closeProductModal}
       />
     </Box>
   );
